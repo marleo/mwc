@@ -148,18 +148,41 @@
         }
 
         @keyframes bracket-float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(-5px, -5px); }
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-5px, -5px);
+            }
         }
 
         @keyframes bracket-float-reverse {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(5px, 5px); }
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(5px, 5px);
+            }
         }
 
         @keyframes bonus-pulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px #4ade80); }
-            50% { transform: scale(1.03); filter: drop-shadow(0 0 10px rgba(74, 222, 128, 0.2)); }
+
+            0%,
+            100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 0px #4ade80);
+            }
+
+            50% {
+                transform: scale(1.03);
+                filter: drop-shadow(0 0 10px rgba(74, 222, 128, 0.2));
+            }
         }
 
         .animate-bracket-top {
@@ -187,7 +210,7 @@
                 <p>Jetzt wieder aufladen und 10% Bonus bekommen</p>
             </div>
             <div class="hidden md:flex space-x-6 items-center">
-                <a href="#" class="hover:underline flex items-center space-x-1">
+                <a href="charge.html" class="hover:underline flex items-center space-x-1">
                     <span>my-waycard kaufen</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -195,14 +218,14 @@
                         </path>
                     </svg>
                 </a>
-                <a href="#" class="hover:underline flex items-center space-x-1">
+                <a href="recharge.html" class="hover:underline flex items-center space-x-1">
                     <span>my-waycard aufladen</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                 </a>
-                <a href="#" class="hover:underline flex items-center space-x-1">
+                <a href="recharge.html" class="hover:underline flex items-center space-x-1">
                     <span>my-waycard Guthaben abfragen</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -405,15 +428,15 @@
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <button
-                            class="bg-[#4ade80] text-[#001d4a] py-2 px-2 rounded-lg font-bold text-[13px] hover:bg-[#3be075] transition-all transform hover:-translate-y-1">€
-                            50 kaufen</button>
-                        <button
-                            class="bg-[#4ade80] text-[#001d4a] py-2 px-2 rounded-lg font-bold text-[13px] hover:bg-[#3be075] transition-all transform hover:-translate-y-1">€
-                            100 kaufen</button>
-                        <button
-                            class="bg-[#4ade80] text-[#001d4a] py-2 px-2 rounded-lg font-bold text-[13px] hover:bg-[#3be075] transition-all transform hover:-translate-y-1 whitespace-nowrap">Eigener
-                            Wert</button>
+                        <a href="charge.html"
+                            class="bg-[#4ade80] text-[#001d4a] py-2 px-2 rounded-lg font-bold text-[13px] hover:bg-[#3be075] transition-all transform hover:-translate-y-1 flex items-center justify-center">€
+                            50 kaufen</a>
+                        <a href="charge.html"
+                            class="bg-[#4ade80] text-[#001d4a] py-2 px-2 rounded-lg font-bold text-[13px] hover:bg-[#3be075] transition-all transform hover:-translate-y-1 flex items-center justify-center">€
+                            100 kaufen</a>
+                        <a href="charge.html"
+                            class="bg-[#4ade80] text-[#001d4a] py-2 px-2 rounded-lg font-bold text-[13px] hover:bg-[#3be075] transition-all transform hover:-translate-y-1 whitespace-nowrap flex items-center justify-center">Eigener
+                            Wert</a>
                     </div>
                 </div>
             </div>
@@ -426,18 +449,21 @@
             <div class="z-10 text-left">
                 <p class="text-xs font-medium mb-3 opacity-90">Die my-waycard für weitere Kurse jederzeit wieder
                     aufladen.</p>
+                <h2 class="text-2xl md:text-3xl font-black leading-tight tracking-tight uppercase italic">
+                    Mehr Weg, Mehr Wow!<br>Hol dir 10% Bonus wenn
+                </h2>
                 <h2 class="text-2xl md:text-3xl font-black mb-6 leading-tight tracking-tight uppercase italic">
-                    Mehr Weg, Mehr Wow!<br>Hol dir 10% Bonus.
+                    du deine Karte wieder auflädst.
                 </h2>
                 <div class="flex space-x-3">
-                    <button
+                    <a href="charge.html"
                         class="bg-white text-[#001d4a] px-6 py-2 rounded-lg font-bold text-xs hover:bg-gray-100 transition-colors">
                         Jetzt kaufen
-                    </button>
-                    <button
-                        class="bg-gradient-to-r from-blue-700 to-blue-500 text-white px-6 py-2 rounded-lg font-bold text-xs hover:opacity-90 transition-opacity">
+                    </a>
+                    <a href="recharge.html"
+                        class="bg-gradient-to-r from-blue-700 to-blue-500 text-white px-6 py-2 rounded-lg font-bold text-xs hover:opacity-90 transition-opacity flex items-center justify-center">
                         Jetzt aufladen
-                    </button>
+                    </a>
                 </div>
             </div>
 

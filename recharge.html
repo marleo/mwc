@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my-waycard.com | Karte aufladen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .step-active {
+            background-color: #4ade80;
+            color: #001d4a;
+        }
+
+        .step-inactive {
+            background-color: white;
+            color: #001d4a;
+            border: 2px solid #e5e7eb;
+        }
+
+        .card-selected {
+            border: 2px solid #4ade80;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom Range Slider */
+        input[type='range'] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+
+        input[type='range']::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            background: #001d4a;
+            border-radius: 2px;
+        }
+
+        input[type='range']::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #4ade80;
+            cursor: pointer;
+            margin-top: -8px;
+            border: 4px solid white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .bonus-bracket {
+            border-left: 4px solid #4ade80;
+            border-top: 4px solid #4ade80;
+            width: 30px;
+            height: 30px;
+        }
+
+        .bonus-bracket-bottom {
+            border-right: 4px solid #4ade80;
+            border-bottom: 4px solid #4ade80;
+            width: 30px;
+            height: 30px;
+        }
+
+        @media (max-width: 768px) {
+
+            .bonus-bracket,
+            .bonus-bracket-bottom {
+                width: 15px;
+                height: 15px;
+                border-width: 2px;
+            }
+        }
+
+        @keyframes bracket-float {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-5px, -5px);
+            }
+        }
+
+        @keyframes bracket-float-reverse {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(5px, 5px);
+            }
+        }
+
+        @keyframes bonus-pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 0px #4ade80);
+            }
+
+            50% {
+                transform: scale(1.03);
+                filter: drop-shadow(0 0 10px rgba(74, 222, 128, 0.2));
+            }
+        }
+
+        .animate-bracket-top {
+            animation: bracket-float 3s ease-in-out infinite;
+        }
+
+        .animate-bracket-bottom {
+            animation: bracket-float-reverse 3s ease-in-out infinite;
+        }
+
+        .animate-bonus-text {
+            animation: bonus-pulse 3s ease-in-out infinite;
+        }
+
+        /* Glassmorphism for Balance Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Top Navigation Bar -->
+    <div class="bg-[#001d4a] border-b border-blue-900">
+        <nav
+            class="max-w-7xl mx-auto text-white text-[11px] py-2 px-4 md:px-12 flex flex-wrap justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="bg-white text-[#001d4a] font-bold px-1 rounded-sm text-[10px]">10</span>
+                <p>Jetzt wieder aufladen und 10% Bonus bekommen</p>
+            </div>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="charge.html" class="hover:underline flex items-center space-x-1">
+                    <span>my-waycard kaufen</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z">
+                        </path>
+                    </svg>
+                </a>
+                <a href="recharge.html" class="hover:underline flex items-center space-x-1">
+                    <span>my-waycard aufladen</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </a>
+                <a href="#" class="hover:underline flex items-center space-x-1">
+                    <span>my-waycard Guthaben abfragen</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                        </path>
+                    </svg>
+                </a>
+                <button class="hover:opacity-80">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <header class="bg-white sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto py-3 px-4 md:px-12 flex items-center justify-between">
+            <!-- Logo Section -->
+            <div class="flex items-center">
+                <a href="index.html">
+                    <img src="assets/images/Logo.png" alt="my-waycard Logo" class="h-8 md:h-10 w-auto">
+                </a>
+            </div>
+
+            <!-- Desktop Search & Discover (Hidden on mobile) -->
+            <div class="flex-1 max-w-2xl mx-8 hidden lg:flex items-center space-x-4">
+                <a href="courses.html" class="flex items-center text-[#001d4a] font-semibold text-sm">
+                    Entdecken
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </a>
+                <div class="relative flex-1">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </span>
+                    <input type="text" placeholder="Suche nach Kursen"
+                        class="w-full bg-gray-100 border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+
+            <!-- Right-side actions -->
+            <div class="flex items-center space-x-2 md:space-x-4">
+                <a href="charge.html"
+                    class="bg-[#4ade80] text-[#001d4a] px-4 md:px-6 py-2 rounded-lg font-bold text-xs md:text-sm hover:bg-[#3be075] transition-colors whitespace-nowrap">
+                    Jetzt kaufen
+                </a>
+                <div
+                    class="hidden sm:flex items-center space-x-1 border border-gray-300 rounded px-2 py-1 cursor-pointer">
+                    <span class="text-xs font-bold text-[#001d4a]">DE</span>
+                    <svg class="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-1 text-[#001d4a] hover:bg-gray-100 rounded-md">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                        <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu"
+            class="hidden lg:hidden bg-white border-t border-gray-100 px-4 py-6 space-y-6 shadow-xl absolute top-full left-0 w-full z-40">
+            <div class="flex flex-col space-y-4">
+                <a href="courses.html" class="flex items-center justify-between text-[#001d4a] font-bold text-lg px-2">
+                    Entdecken
+                    <svg class="w-5 h-5 text-gray-400 font-normal" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+                <div class="relative px-2">
+                    <span class="absolute inset-y-0 left-5 flex items-center text-gray-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </span>
+                    <input type="text" placeholder="Suche nach Kursen"
+                        class="w-full bg-gray-100 border-none rounded-xl py-3 pl-12 pr-4 text-sm focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="pt-4 border-t border-gray-50 flex items-center justify-between px-2">
+                    <span class="text-sm font-semibold text-gray-500">Sprache wählen</span>
+                    <div class="flex items-center space-x-2 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-200">
+                        <span class="text-xs font-bold text-[#001d4a]">DE</span>
+                        <svg class="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content: Recharge Wizard -->
+    <main class="flex-1 py-12 px-4">
+        <div class="max-w-4xl mx-auto">
+
+            <h1 class="text-center text-[#001d4a] text-3xl md:text-4xl font-black uppercase mb-12 tracking-tight">Karte
+                aufladen</h1>
+
+            <!-- Progress Steps Indicator -->
+            <div class="flex justify-center items-center space-x-6 mb-4">
+                <div id="step-1-dot"
+                    class="w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-md step-active">1
+                </div>
+                <div id="step-2-dot"
+                    class="w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-sm step-inactive">2
+                </div>
+                <div id="step-3-dot"
+                    class="w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-sm step-inactive">3
+                </div>
+                <div id="step-4-dot"
+                    class="w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-sm step-inactive">4
+                </div>
+                <div id="step-5-dot"
+                    class="w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-sm step-inactive">5
+                </div>
+            </div>
+            <p id="step-label" class="text-center text-[#001d4a] font-semibold text-sm mb-10 uppercase tracking-wide">
+                Karte wählen</p>
+
+            <!-- Wizard Containers -->
+            <div class="relative min-h-[300px]">
+
+                <!-- Stage 1: Card Selection -->
+                <div id="stage-1" class="stage transition-all duration-300 scale-100 opacity-100">
+                    <div
+                        class="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-sm border border-gray-100 flex flex-col items-center max-w-2xl mx-auto">
+                        <div
+                            class="w-16 h-16 bg-[#4ade80] rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-green-100">
+                            <svg class="w-8 h-8 text-[#001d4a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-[#001d4a] font-black uppercase text-lg mb-4">Kartennummer eingeben</h3>
+                        <p class="text-gray-500 text-sm text-center mb-8">Gib die 16-stellige Nummer auf der Rückseite
+                            deiner my-waycard ein, um das aktuelle Guthaben zu prüfen.</p>
+
+                        <div class="w-full relative max-w-md">
+                            <input type="text" id="card-number" maxlength="19" placeholder="XXXX XXXX XXXX XXXX"
+                                class="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl py-4 px-6 text-[#001d4a] font-bold text-xl text-center tracking-widest focus:ring-4 focus:ring-green-100 focus:border-[#4ade80] transition-all outline-none">
+                            <button onclick="checkBalance()" id="btn-check"
+                                class="mt-6 w-full bg-[#001d4a] text-white py-4 rounded-2xl font-bold hover:bg-[#003566] transition-all shadow-lg flex items-center justify-center space-x-2">
+                                <span>Guthaben abfragen</span>
+                                <svg id="check-spinner" class="animate-spin h-5 w-5 text-white hidden"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                        stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor"
+                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div id="balance-info"
+                            class="mt-10 hidden transition-all duration-500 scale-95 opacity-0 w-full">
+                            <div class="glass-card p-6 rounded-3xl border border-green-100 flex flex-col items-center">
+                                <p
+                                    class="text-[10px] font-black uppercase tracking-[0.2em] text-[#001d4a] opacity-60 mb-1">
+                                    Aktuelles Guthaben</p>
+                                <div class="text-[#001d4a] text-4xl font-extrabold" id="current-balance">€ 42,50</div>
+                                <div
+                                    class="mt-4 flex items-center space-x-2 bg-green-50 text-green-700 px-3 py-1 rounded-full text-[10px] font-bold">
+                                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Karte ist aktiv</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 2: Betrag -->
+                <div id="stage-2" class="stage hidden transition-all duration-300 scale-95 opacity-0">
+                    <div
+                        class="bg-white p-12 rounded-[2.5rem] shadow-sm border border-gray-50 flex flex-col items-center text-center">
+                        <h3 class="text-[#001d4a] font-black uppercase text-sm tracking-widest mb-10">Ladebetrag wählen
+                        </h3>
+
+                        <div class="w-full max-w-md mb-12">
+                            <input type="range" id="value-slider" min="10" max="2500" step="10" value="100"
+                                class="mb-4">
+                            <div class="flex justify-between text-[11px] font-bold text-[#001d4a] opacity-80">
+                                <span>€ 10</span>
+                                <span>€ 2500</span>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8 mb-12">
+                            <div class="flex items-center space-x-4">
+                                <span class="text-[#001d4a] font-bold text-sm">Betrag:</span>
+                                <div class="relative">
+                                    <input type="number" id="value-input" value="100"
+                                        class="bg-gray-100 border-none rounded-xl py-3 px-6 text-[#001d4a] font-bold text-xl w-32 focus:ring-2 focus:ring-[#4ade80]">
+                                    <span
+                                        class="absolute right-4 top-1/2 -translate-y-1/2 text-[#001d4a] font-bold">€</span>
+                                </div>
+                            </div>
+
+                            <div class="hidden md:block w-px h-12 bg-gray-200"></div>
+
+                            <div class="text-left">
+                                <p class="text-[10px] font-black uppercase text-gray-400 mb-1">Neues Guthaben</p>
+                                <p class="text-[#001d4a] font-black text-2xl" id="new-balance-display">€ 142,50</p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-blue-50 border border-blue-100 p-6 rounded-2xl flex items-start space-x-4 text-left max-w-md">
+                            <div class="text-blue-500 mt-1">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-[#001d4a] font-bold text-xs uppercase mb-1">Wow-Effekt inklusive</p>
+                                <p class="text-[#001d4a] text-[11px] opacity-80 leading-relaxed">Bei jeder Aufladung
+                                    legen wir automatisch <span class="font-bold">10% Bonus</span> oben drauf. Für deine
+                                    € 100 bekommst du einen Gesamtwert von € 110 gutgeschrieben.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 3: Kundentyp -->
+                <div id="stage-3" class="stage hidden transition-all duration-300 scale-95 opacity-0">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div onclick="selectClientType('privat')" id="client-privat"
+                            class="bg-white p-10 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col items-center justify-center text-center group">
+                            <div
+                                class="w-6 h-6 rounded-full border-2 border-gray-300 mb-6 flex items-center justify-center group-hover:border-[#001d4a]">
+                                <div id="check-privat" class="w-3 h-3 rounded-full bg-[#001d4a] hidden"></div>
+                            </div>
+                            <h3 class="text-[#001d4a] font-black uppercase text-xl leading-tight">PRIVATKUNDE</h3>
+                        </div>
+                        <div onclick="selectClientType('firma')" id="client-firma"
+                            class="bg-white p-10 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col items-center justify-center text-center group">
+                            <div
+                                class="w-6 h-6 rounded-full border-2 border-gray-300 mb-6 flex items-center justify-center group-hover:border-[#001d4a]">
+                                <div id="check-firma" class="w-3 h-3 rounded-full bg-[#001d4a] hidden"></div>
+                            </div>
+                            <h3 class="text-[#001d4a] font-black uppercase text-xl leading-tight">FIRMENKUNDE</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 4: Bezahlung -->
+                <div id="stage-4" class="stage hidden transition-all duration-300 scale-95 opacity-0">
+                    <div
+                        class="bg-white p-12 rounded-[2.5rem] shadow-sm border border-gray-100 flex flex-col items-center text-center">
+                        <h3 class="text-[#001d4a] font-black uppercase text-sm tracking-widest mb-10">Bezahlung</h3>
+                        <div class="w-full max-w-md space-y-4">
+                            <div
+                                class="flex items-center justify-between p-4 border-2 border-gray-100 rounded-2xl hover:border-[#4ade80] transition-all cursor-pointer group">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 bg-gray-50 rounded-xl flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-gray-400 group-hover:text-[#4ade80]" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <span class="font-bold text-[#001d4a]">Kreditkarte</span>
+                                </div>
+                                <div class="w-5 h-5 rounded-full border-2 border-gray-200"></div>
+                            </div>
+                            <div
+                                class="flex items-center justify-between p-4 border-2 border-[#4ade80] rounded-2xl bg-green-50/30 transition-all cursor-pointer group">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-[#4ade80]" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <span class="font-bold text-[#001d4a]">PayPal</span>
+                                </div>
+                                <div class="w-5 h-5 rounded-full border-[6px] border-[#4ade80]"></div>
+                            </div>
+                            <div
+                                class="flex items-center justify-between p-4 border-2 border-gray-100 rounded-2xl hover:border-[#4ade80] transition-all cursor-pointer group">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 bg-gray-50 rounded-xl flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-gray-400 group-hover:text-[#4ade80]" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 14v20M12 14v20M16 14v20M3 10V3a1 1 0 011-1h16a1 1 0 011 1v7M3 10h18M3 10l1.32 1.32a2 2 0 002.828 0m0 0l1.32-1.32m0 0l1.32 1.32a2 2 0 002.828 0m0 0l1.32-1.32m0 0l1.32 1.32a2 2 0 002.828 0m0 0l1.32-1.32">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <span class="font-bold text-[#001d4a]">Sofortüberweisung</span>
+                                </div>
+                                <div class="w-5 h-5 rounded-full border-2 border-gray-200"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 5: Bestätigung -->
+                <div id="stage-5" class="stage hidden transition-all duration-300 scale-95 opacity-0">
+                    <div
+                        class="bg-white p-12 rounded-[2.5rem] shadow-sm border border-gray-100 flex flex-col items-center">
+                        <div
+                            class="w-20 h-20 bg-[#4ade80] rounded-3xl flex items-center justify-center mb-8 shadow-xl shadow-green-100">
+                            <svg class="w-10 h-10 text-[#001d4a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-[#001d4a] font-black uppercase text-xl mb-6">Fast geschafft!</h3>
+
+                        <div class="w-full max-w-sm bg-gray-50 rounded-3xl p-8 space-y-4 mb-8">
+                            <div class="flex justify-between items-center pb-4 border-b border-gray-200">
+                                <span class="text-gray-500 text-xs font-bold uppercase">Karte</span>
+                                <span class="text-[#001d4a] font-bold" id="confirm-card">**** 8421</span>
+                            </div>
+                            <div class="flex justify-between items-center pb-4 border-b border-gray-200">
+                                <span class="text-gray-500 text-xs font-bold uppercase">Ladebetrag</span>
+                                <span class="text-[#001d4a] font-bold" id="confirm-amount">€ 100,00</span>
+                            </div>
+                            <div class="flex justify-between items-center pb-4 border-b border-gray-200">
+                                <span class="text-gray-500 text-xs font-bold uppercase">Bonus (10%)</span>
+                                <span class="text-green-600 font-bold">+ € 10,00</span>
+                            </div>
+                            <div class="flex justify-between items-center pt-2">
+                                <span class="text-[#001d4a] font-black uppercase text-sm">Gesamtwert</span>
+                                <span class="text-[#001d4a] font-black text-xl" id="confirm-total">€ 110,00</span>
+                            </div>
+                        </div>
+
+                        <p class="text-[10px] text-gray-400 text-center leading-relaxed">Mit Klick auf "Jetzt aufladen"
+                            wird der Betrag über PayPal abgebucht und das Guthaben deiner Karte innerhalb weniger
+                            Sekunden aktualisiert.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex justify-center items-center space-x-6 mt-12 scale-110">
+                <button onclick="prevStage()" id="btn-back"
+                    class="bg-[#003566] text-white px-10 py-3 rounded-xl font-bold text-sm shadow-md hover:opacity-90 transition-all hidden">Zurück</button>
+                <button onclick="nextStage()" id="btn-next"
+                    class="bg-[#4ade80] text-[#001d4a] px-10 py-3 rounded-xl font-black text-sm shadow-md hover:bg-[#3be075] transition-all">Weiter</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Bonus Banner -->
+    <section class="px-4 md:px-12 py-12">
+        <div
+            class="max-w-7xl mx-auto w-full bg-[#002a5a] rounded-[2.5rem] p-8 md:p-12 text-white relative flex flex-col md:flex-row items-center justify-between overflow-hidden">
+            <div class="z-10 text-left max-w-xl">
+                <p class="text-green-400 font-bold text-xs uppercase tracking-widest mb-4">Loyalty Bonus</p>
+                <h2 class="text-3xl md:text-5xl font-black mb-8 leading-tight tracking-tight uppercase italic">
+                    Jede Aufladung<br>bringt dir 10%.
+                </h2>
+                <p class="text-white/70 text-sm mb-10 leading-relaxed">Wir belohnen deine Treue. Egal wie oft oder wie
+                    viel du auflädst, wir schenken dir jedes Mal 10% des Ladebetrags als zusätzliches Guthaben. Mehr
+                    Kurse, mehr Wissen, mehr Wow.</p>
+                <div class="flex space-x-4">
+                    <a href="charge.html"
+                        class="bg-white text-[#001d4a] px-8 py-3 rounded-xl font-bold text-sm hover:bg-gray-100 transition-colors">
+                        Neue Karte kaufen
+                    </a>
+                </div>
+            </div>
+
+            <div class="hidden md:flex relative mt-10 md:mt-0 md:mr-12 items-center justify-center scale-125">
+                <div class="absolute -top-10 -left-10 bonus-bracket animate-bracket-top"></div>
+                <span
+                    class="text-[120px] font-black text-[#4ade80] leading-none select-none tracking-tighter animate-bonus-text">10%</span>
+                <div class="absolute -bottom-10 -right-10 bonus-bracket-bottom animate-bracket-bottom"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+        class="bg-[#001d4a] py-16 px-4 md:px-12 text-center text-gray-500 text-sm mt-auto border-t border-blue-900/50">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col items-center">
+                <img src="assets/images/Logo.png" alt="Logo" class="h-8 opacity-40 grayscale mb-8">
+                <div class="flex space-x-8 mb-8 font-semibold text-xs uppercase tracking-widest">
+                    <a href="#" class="hover:text-white transition-colors">Impressum</a>
+                    <a href="#" class="hover:text-white transition-colors">Datenschutz</a>
+                    <a href="#" class="hover:text-white transition-colors">AGB</a>
+                    <a href="#" class="hover:text-white transition-colors">Kontakt</a>
+                </div>
+                <p class="opacity-50">© 2024 my-waycard.com. Alle Rechte vorbehalten.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentStage = 1;
+        const totalStages = 5;
+        const stageLabels = ["Karte wählen", "Betrag wählen", "Kundentyp", "Bezahlung", "Zusammenfassung"];
+        let currentBalance = 0;
+        let rechargeAmount = 100;
+
+        function updateUI() {
+            // Update dots
+            for (let i = 1; i <= totalStages; i++) {
+                const dot = document.getElementById(`step-${i}-dot`);
+                if (i === currentStage) {
+                    dot.classList.remove('step-inactive');
+                    dot.classList.add('step-active');
+                } else if (i < currentStage) {
+                    dot.classList.remove('step-inactive');
+                    dot.classList.add('step-active', 'opacity-50');
+                } else {
+                    dot.classList.remove('step-active', 'opacity-50');
+                    dot.classList.add('step-inactive');
+                }
+            }
+
+            // Update label
+            document.getElementById('step-label').innerText = stageLabels[currentStage - 1];
+
+            // Show/Hide stages
+            document.querySelectorAll('.stage').forEach((s, idx) => {
+                const idNum = idx + 1;
+                const element = document.getElementById(`stage-${idNum}`);
+                if (idNum === currentStage) {
+                    element.classList.remove('hidden');
+                    setTimeout(() => {
+                        element.classList.remove('scale-95', 'opacity-0');
+                        element.classList.add('scale-100', 'opacity-100');
+                    }, 50);
+                } else {
+                    element.classList.add('hidden', 'scale-95', 'opacity-0');
+                    element.classList.remove('scale-100', 'opacity-100');
+                }
+            });
+
+            // Update buttons
+            const backBtn = document.getElementById('btn-back');
+            const nextBtn = document.getElementById('btn-next');
+
+            if (currentStage > 1) {
+                backBtn.classList.remove('hidden');
+            } else {
+                backBtn.classList.add('hidden');
+            }
+
+            if (currentStage === 1) {
+                nextBtn.classList.add('opacity-50', 'pointer-events-none');
+            } else {
+                nextBtn.classList.remove('opacity-50', 'pointer-events-none');
+            }
+
+            if (currentStage === totalStages) {
+                nextBtn.innerText = "Jetzt aufladen";
+            } else {
+                nextBtn.innerText = "Weiter";
+            }
+
+            // Sync Summary
+            if (currentStage === 5) {
+                const cardNum = document.getElementById('card-number').value || "8421";
+                document.getElementById('confirm-card').innerText = "**** " + cardNum.slice(-4);
+                document.getElementById('confirm-amount').innerText = "€ " + parseFloat(rechargeAmount).toFixed(2).replace('.', ',');
+                document.getElementById('confirm-total').innerText = "€ " + (rechargeAmount * 1.1).toFixed(2).replace('.', ',');
+            }
+        }
+
+        function checkBalance() {
+            const cardNum = document.getElementById('card-number').value;
+            if (cardNum.length < 10) return;
+
+            const btn = document.getElementById('btn-check');
+            const spinner = document.getElementById('check-spinner');
+            const info = document.getElementById('balance-info');
+
+            btn.classList.add('opacity-80', 'pointer-events-none');
+            spinner.classList.remove('hidden');
+
+            // Simulate API call
+            setTimeout(() => {
+                spinner.classList.add('hidden');
+                btn.classList.remove('opacity-80', 'pointer-events-none');
+
+                info.classList.remove('hidden');
+                setTimeout(() => {
+                    info.classList.remove('scale-95', 'opacity-0');
+                    info.classList.add('scale-100', 'opacity-100');
+
+                    // Allow going to next stage
+                    document.getElementById('btn-next').classList.remove('opacity-50', 'pointer-events-none');
+                    currentBalance = 42.50;
+                    updateNewBalance();
+                }, 50);
+            }, 1200);
+        }
+
+        function updateNewBalance() {
+            rechargeAmount = parseFloat(document.getElementById('value-input').value) || 0;
+            const bonus = rechargeAmount * 0.1;
+            const combined = currentBalance + rechargeAmount + bonus;
+            document.getElementById('new-balance-display').innerText = "€ " + combined.toFixed(2).replace('.', ',');
+        }
+
+        function nextStage() {
+            if (currentStage < totalStages) {
+                currentStage++;
+                updateUI();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function prevStage() {
+            if (currentStage > 1) {
+                currentStage--;
+                updateUI();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function selectClientType(type) {
+            document.getElementById('client-privat').classList.remove('card-selected');
+            document.getElementById('client-firma').classList.remove('card-selected');
+            document.getElementById('check-privat').classList.add('hidden');
+            document.getElementById('check-firma').classList.add('hidden');
+
+            document.getElementById(`client-${type}`).classList.add('card-selected');
+            document.getElementById(`check-${type}`).classList.remove('hidden');
+
+            setTimeout(nextStage, 400);
+        }
+
+        // Slider & Input logic
+        const slider = document.getElementById('value-slider');
+        const input = document.getElementById('value-input');
+
+        slider.addEventListener('input', (e) => {
+            input.value = e.target.value;
+            updateNewBalance();
+        });
+
+        input.addEventListener('input', (e) => {
+            slider.value = e.target.value;
+            updateNewBalance();
+        });
+
+        // Format card number input
+        document.getElementById('card-number').addEventListener('input', function (e) {
+            let target = e.target;
+            let position = target.selectionEnd;
+            let length = target.value.length;
+
+            target.value = target.value.replace(/[^\d]/g, '').replace(/(.{4})/g, '$1 ').trim();
+            target.selectionEnd = position + (target.value.length > length ? 1 : 0);
+        });
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger-icon');
+            const close = document.getElementById('close-icon');
+
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                hamburger.classList.add('hidden');
+                close.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+                hamburger.classList.remove('hidden');
+                close.classList.add('hidden');
+            }
+        }
+
+        updateUI();
+    </script>
+</body>
+
+</html>
