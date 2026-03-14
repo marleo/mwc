@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my-waycard.com | Firmenkunden & Incentives</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        .hero-bg {
+            background: linear-gradient(rgba(0, 29, 74, 0.7), rgba(0, 29, 74, 0.7)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&h=900&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .waycard-promo-bg {
+            background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e40af 100%);
+        }
+
+        @keyframes blob {
+            0% {
+                transform: translate(0px, 0px) scale(1);
+            }
+
+            33% {
+                transform: translate(50px, -70px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-40px, 40px) scale(0.9);
+            }
+
+            100% {
+                transform: translate(0px, 0px) scale(1);
+            }
+        }
+
+        .animate-blob {
+            animation: blob 15s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Top Navigation Bar -->
+    <div class="bg-[#001d4a] border-b border-blue-900">
+        <nav
+            class="max-w-7xl mx-auto text-white text-[11px] py-2 px-4 md:px-12 flex flex-wrap justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="bg-white text-[#001d4a] font-bold px-1 rounded-sm text-[10px]">10</span>
+                <p>Jetzt wieder aufladen und 10% Bonus bekommen</p>
+            </div>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="charge.html" class="hover:underline flex items-center space-x-1">
+                    <span>my-waycard kaufen</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z">
+                        </path>
+                    </svg>
+                </a>
+                <a href="recharge.html" class="hover:underline flex items-center space-x-1">
+                    <span>my-waycard aufladen</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </a>
+                <a href="recharge.html"
+                    class="hover:underline flex items-center space-x-1 border-l border-blue-800 pl-6">
+                    <span>my-waycard Guthaben abfragen</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                        </path>
+                    </svg>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <header class="bg-white sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto py-3 px-4 md:px-12 flex items-center justify-between">
+            <div class="flex items-center">
+                <a href="index.html">
+                    <img src="assets/images/Logo.png" alt="my-waycard Logo" class="h-8 md:h-10 w-auto">
+                </a>
+            </div>
+            <div class="flex-1 max-w-2xl mx-8 hidden lg:flex items-center space-x-4">
+                <div class="relative flex-1">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </span>
+                    <input type="text" placeholder="Suche nach Kursen"
+                        class="w-full bg-gray-100 border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-blue-500">
+                </div>
+                <a href="courses.html" class="flex items-center text-[#001d4a] font-black uppercase text-sm">
+                    Entdecken
+                    <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="charge.html"
+                    class="bg-[#4ade80] text-[#001d4a] px-4 md:px-6 py-2 rounded-lg font-bold text-xs md:text-sm hover:bg-[#3be075] transition-colors whitespace-nowrap">
+                    Jetzt kaufen
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg h-[500px] md:h-[600px] relative overflow-hidden flex items-center">
+        <div
+            class="max-w-7xl mx-auto px-4 md:px-12 relative z-10 w-full flex flex-col md:flex-row items-center justify-between">
+            <div class="text-white max-w-2xl">
+                <h1 class="text-4xl md:text-7xl font-black uppercase italic tracking-tighter leading-none mb-6">
+                    EIN GESCHENK,<br>DAS WIRKUNG ZEIGT
+                </h1>
+            </div>
+            <div class="mt-8 md:mt-0 relative group">
+                <img src="assets/images/card.png" alt="my-waycard"
+                    class="w-72 md:w-[450px] drop-shadow-2xl transform rotate-[-10deg] group-hover:rotate-[-5deg] transition-transform duration-500">
+                <div class="absolute -inset-4 bg-white/10 blur-3xl -z-10 rounded-full"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Introduction -->
+    <section class="relative -mt-20 z-20 px-4 md:px-0">
+        <div class="max-w-6xl mx-auto bg-white rounded-[2.5rem] p-12 shadow-2xl shadow-blue-900/10 text-center">
+            <p class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-4">Für Teams und Kunden, die ihr
+                Unternehmen weiterbringen</p>
+            <h2
+                class="text-[#001d4a] text-3xl md:text-5xl font-black uppercase italic tracking-tighter mb-16 leading-tight">
+                EURE VORTEILE LIEGEN AUF DER HAND ... ÄH AUF DEM WEG
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Benefit 1 -->
+                <div
+                    class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm hover:shadow-xl transition-all group overflow-hidden">
+                    <h3 class="text-[#001d4a] font-black text-sm uppercase mb-6 tracking-widest px-4">STEUERLICHE
+                        VORTEILE</h3>
+                    <div
+                        class="aspect-video mb-6 rounded-2xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500">
+                        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=400&fit=crop"
+                            alt="Steuerliche Vorteile" class="w-full h-full object-cover">
+                    </div>
+                    <p class="text-gray-500 text-xs leading-relaxed px-4">
+                        Mitarbeiter fördern und Steuern sparen: Weiterbildung als steuerlich geförderter Benefit nutzen.
+                    </p>
+                </div>
+
+                <!-- Benefit 2 -->
+                <div
+                    class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm hover:shadow-xl transition-all group overflow-hidden">
+                    <h3 class="text-[#001d4a] font-black text-sm uppercase mb-6 tracking-widest px-4">PERSÖNLICHES
+                        BENEFIT PROGRAMM</h3>
+                    <div
+                        class="aspect-video mb-6 rounded-2xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500">
+                        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&h=400&fit=crop"
+                            alt="Benefit Programm" class="w-full h-full object-cover">
+                    </div>
+                    <p class="text-gray-500 text-xs leading-relaxed px-4">
+                        Persönliche Weiterbildungskurse als Geschenk – für zufriedene und motivierte Mitarbeiter und den
+                        Erfolg eurer Firma.
+                    </p>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div
+                    class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm hover:shadow-xl transition-all group overflow-hidden">
+                    <h3 class="text-[#001d4a] font-black text-sm uppercase mb-6 tracking-widest px-4">PERSÖNLICHES
+                        BRANDING</h3>
+                    <div
+                        class="aspect-video mb-6 rounded-2xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500 bg-gray-50 flex items-center justify-center">
+                        <img src="assets/images/card.png" alt="Branding" class="w-3/4 h-auto transform rotate-[-5deg]">
+                    </div>
+                    <p class="text-gray-500 text-xs leading-relaxed px-4">
+                        Euer Benefits-Programm mit persönlicher Note: gebrandete Weiterbildungskurse als wertschätzendes
+                        Geschenk.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sub Header Section -->
+    <section class="max-w-7xl mx-auto px-4 md:px-12 py-24">
+        <div class="text-center mb-20">
+            <p class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-4">Individuelles Branding und
+                zielgerichtete Kurswahl machen die my-waycard zum idealen Kunden-Geschenk und Mitarbeiter-Benefit</p>
+            <h2 class="text-[#001d4a] text-4xl md:text-6xl font-black uppercase italic tracking-tighter">
+                BESSER ALS DIE SCHACHTEL PRALINEN
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+            <div class="space-y-8 text-gray-600 leading-relaxed text-sm">
+                <p>
+                    <span class="font-bold text-[#001d4a]">Mitarbeiter*innen sind das Herz eures Unternehmens.</span>
+                    Mit der my-waycard schenkt ihr nicht nur eine Aufmerksamkeit – ihr investiert in Motivation,
+                    Entwicklung und langfristige Mitarbeiterzufriedenheit. Weiterbildung trifft Wertschätzung.
+                </p>
+                <p>
+                    Die my-waycard ermöglicht Mitarbeiterinnen und Mitarbeitern die flexible Buchung hochwertiger Kurse
+                    aus unserem vielfältigen Angebot. Ob persönliche Weiterentwicklung, Stressmanagement, Kreativkurse
+                    oder fachliche Qualifikation – jeder findet das passende Format für seine individuellen Ziele. So
+                    wird aus einem Benefit ein echter Mehrwert.
+                </p>
+                <p>
+                    In Zeiten von Fachkräftemangel und wachsendem Wettbewerbsdruck sind attraktive Benefits
+                    entscheidend. Mit der my-waycard schafft ihr einen Anreiz, der Wertschätzung ausdrückt und
+                    gleichzeitig Kompetenzen stärkt.
+                </p>
+                <p class="text-[#001d4a] font-black uppercase text-xl italic tracking-tight pt-4">
+                    Macht Weiterbildung zu einem Teil der Unternehmenskultur.
+                </p>
+            </div>
+
+            <div class="space-y-12">
+                <h3
+                    class="text-[#001d4a] font-black uppercase text-xl tracking-tight mb-8 underline decoration-[#4ade80] decoration-4 underline-offset-8">
+                    Eure Vorteile als Unternehmen</h3>
+
+                <div class="space-y-8">
+                    <div class="flex items-start">
+                        <div class="text-[#4ade80] mr-4 mt-1">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-[#001d4a] font-black uppercase text-sm mb-2">Ein Geschenk, das Sinn macht.
+                            </h4>
+                            <p class="text-xs text-gray-500">Positioniert euch als moderner Arbeitgeber, der Entwicklung
+                                fördert und Potenziale stärkt.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="text-[#4ade80] mr-4 mt-1">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-[#001d4a] font-black uppercase text-sm mb-2">Persönlich, flexibel,
+                                unkompliziert.</h4>
+                            <p class="text-xs text-gray-500">Mitarbeiter und Kunden wählen selbst, was zu ihnen passt.
+                                So wird jedes Geschenk relevant - und für Unternehmen einfach in der Umsetzung.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="text-[#4ade80] mr-4 mt-1">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-[#001d4a] font-black uppercase text-sm mb-2">Einfach organisiert. Mehr
+                                Wirkung pro Investition.</h4>
+                            <p class="text-xs text-gray-500">Digital oder physisch, einzeln oder in Serie. Wir kümmern
+                                uns um eine schnelle Abwicklung, attraktive Firmenkonditionen und zusätzlichen Bonus bei
+                                jeder Aufladung.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="text-[#4ade80] mr-4 mt-1">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-[#001d4a] font-black uppercase text-sm mb-2">Wertschätzung, die Wirkung
+                                zeigt.</h4>
+                            <p class="text-xs text-gray-500">Wer Entwicklung, Gesundheit und neue Impulse ermöglicht,
+                                stärkt Motivation, Loyalität und langfristige Beziehungen.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mid Banner CTA -->
+    <section class="waycard-promo-bg py-24 px-4 overflow-hidden relative">
+        <div class="absolute inset-0">
+            <div
+                class="absolute top-1/4 -left-20 w-96 h-96 bg-[#4ade80] rounded-full mix-blend-screen filter blur-[120px] opacity-10 animate-blob">
+            </div>
+            <div
+                class="absolute bottom-1/4 -right-20 w-96 h-96 bg-blue-400 rounded-full mix-blend-screen filter blur-[120px] opacity-10 animate-blob">
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto relative z-10 text-center text-white">
+            <p class="text-blue-200 text-xs font-bold uppercase tracking-[0.3em] mb-6">Die my-waycard als Geschenk für
+                treue Kunden und fleissige Mitarbeiter.</p>
+            <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter mb-12">
+                MAKE IT YOUR WAY - EURE GUTSCHEINKARTE
+            </h2>
+
+            <div class="flex justify-center mb-16">
+                <div class="relative w-80 md:w-[450px]">
+                    <img src="assets/images/card.png" alt="Personalized Card" class="w-full drop-shadow-2xl">
+                    <div
+                        class="absolute -top-4 -right-4 bg-white text-[#001d4a] p-3 rounded-2xl font-black text-[10px] uppercase shadow-xl transform rotate-12">
+                        DEINE MARKE</div>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-black uppercase italic mb-8">EUER GESCHENK, EURE MARKE</h3>
+            <p class="text-blue-100/70 text-sm max-w-2xl mx-auto mb-12 leading-relaxed">
+                Auf Wunsch gestalten wir die my-waycard im Corporate Design Eures Unternehmens - für einen konsistenten,
+                hochwertigen Markenauftritt nach innen und außen.
+            </p>
+
+            <button
+                class="bg-[#4ade80] text-[#001d4a] px-12 py-5 rounded-2xl font-black uppercase text-sm shadow-xl shadow-green-500/20 hover:bg-[#3be075] transition-all transform hover:-translate-y-1">
+                Jetzt beraten lassen
+            </button>
+        </div>
+    </section>
+
+    <!-- Contact Form & Testimonial -->
+    <section class="bg-white py-32 px-4 md:px-12">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-20">
+
+            <!-- Left Side: Form -->
+            <div class="lg:col-span-12 xl:col-span-7">
+                <div class="mb-12">
+                    <p class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-4">Nehmt jetzt Kontakt auf
+                        und lasst euch von uns individuell beraten</p>
+                    <h2 class="text-[#001d4a] text-4xl md:text-5xl font-black uppercase italic tracking-tighter">
+                        BEREIT FÜR WEITERBILDUNG IM FIRMENLOOK?
+                    </h2>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black uppercase text-gray-400 ml-2">Firma</label>
+                        <input type="text"
+                            class="w-full bg-gray-50 border border-gray-200 rounded-2xl py-4 px-6 focus:ring-2 focus:ring-[#4ade80] focus:bg-white transition-all outline-none">
+                    </div>
+
+                    <p class="text-[10px] font-black uppercase text-gray-400 ml-2 pt-4">Ansprechpartner</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold text-gray-400 ml-2">Vorname</label>
+                            <input type="text"
+                                class="w-full bg-gray-50 border border-gray-200 rounded-2xl py-4 px-6 focus:ring-2 focus:ring-[#4ade80] focus:bg-white transition-all outline-none">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold text-gray-400 ml-2">Name</label>
+                            <input type="text"
+                                class="w-full bg-gray-50 border border-gray-200 rounded-2xl py-4 px-6 focus:ring-2 focus:ring-[#4ade80] focus:bg-white transition-all outline-none">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold text-gray-400 ml-2">Email</label>
+                            <input type="email"
+                                class="w-full bg-gray-50 border border-gray-200 rounded-2xl py-4 px-6 focus:ring-2 focus:ring-[#4ade80] focus:bg-white transition-all outline-none">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold text-gray-400 ml-2">Telefon</label>
+                            <input type="tel"
+                                class="w-full bg-gray-50 border border-gray-200 rounded-2xl py-4 px-6 focus:ring-2 focus:ring-[#4ade80] focus:bg-white transition-all outline-none">
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-gray-400 ml-2">Nachricht</label>
+                        <textarea rows="4"
+                            class="w-full bg-gray-50 border border-gray-200 rounded-2xl py-4 px-6 focus:ring-2 focus:ring-[#4ade80] focus:bg-white transition-all outline-none resize-none"></textarea>
+                    </div>
+
+                    <div class="flex items-center space-x-3 pt-4">
+                        <input type="checkbox" id="privacy"
+                            class="w-5 h-5 rounded border-gray-300 text-[#4ade80] focus:ring-[#4ade80]">
+                        <label for="privacy"
+                            class="text-[10px] text-gray-500 font-bold uppercase cursor-pointer">Hiermit akzeptiere ich
+                            die Datenschutzerklärung.</label>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-[#4ade80] text-[#001d4a] py-5 rounded-2xl font-black uppercase text-sm shadow-xl shadow-green-500/10 hover:bg-[#3be075] transition-all">
+                        Beratung anfragen
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right Side: Testimonial -->
+            <div class="lg:col-span-12 xl:col-span-5 flex flex-col justify-center">
+                <div class="relative bg-white p-12 rounded-[2.5rem] border border-gray-100 shadow-xl">
+                    <div class="absolute -top-4 -left-4 text-[#001d4a]/20">
+                        <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H16.017C15.4647 8 15.017 8.44772 15.017 9V12C15.017 12.5523 14.5693 13 14.017 13H13.017C12.4647 13 12.017 12.5523 12.017 12V9C12.017 6.79086 13.8079 5 16.017 5H19.017C21.2261 5 23.017 6.79086 23.017 9V15C23.017 18.3137 20.3307 21 17.017 21H14.017ZM1.017 21L1.017 18C1.017 16.8954 1.91243 16 3.017 16H6.017C6.56928 16 7.017 15.5523 7.017 15V9C7.017 8.44772 6.56928 8 6.017 8H3.017C2.46472 8 2.017 8.44772 2.017 9V12C2.017 12.5523 1.56928 13 1.017 13H0.017C-0.535282 13 -1.017 12.5523 -1.017 12V9C-1.017 6.79086 0.773859 5 3.017 5H6.017C8.22614 5 10.017 6.79086 10.017 9V15C10.017 18.3137 7.33072 21 4.017 21H1.017Z" />
+                        </svg>
+                    </div>
+
+                    <p class="text-[#001d4a] font-black text-2xl italic leading-tight mb-12 relative z-10">
+                        “Lorem ipsum dolor sit amet, consectetur adipiscing elit.نر Lorem ipsum dolor sit amet,
+                        consetetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.”
+                    </p>
+
+                    <div class="flex items-center space-x-6">
+                        <img src="assets/images/christian.png" alt="Christian Hasenbichler"
+                            class="w-16 h-16 rounded-2xl object-cover grayscale">
+                        <div>
+                            <p class="text-[#001d4a] font-black uppercase text-sm">Christian Hasenbichler</p>
+                            <p class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">CEO my-waycard</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="bg-gray-50 py-32 px-4 md:px-12">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-16 text-center">
+                <p class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-4">Häufig gestellte Fragen</p>
+                <h2 class="text-[#001d4a] text-4xl md:text-5xl font-black uppercase italic tracking-tighter">
+                    KEINE UMWEGE - HIER ENTLANG
+                </h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="accordion-item bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+                    <button onclick="toggleAccordion(this)" class="w-full px-8 py-6 flex items-center justify-between text-left group">
+                        <span class="text-[#001d4a] font-black uppercase text-sm tracking-tight group-hover:text-blue-600 transition-colors">Welche steuerlichen Vorteile ergeben sich für mein Unternehmen?</span>
+                        <span class="accordion-icon w-8 h-8 flex items-center justify-center bg-gray-50 rounded-full text-[#001d4a] group-hover:bg-[#4ade80] transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="px-8 pb-6 text-gray-500 text-xs leading-relaxed">
+                            Die my-waycard kann als Sachbezug gemäß § 8 Abs. 2 Satz 11 EStG genutzt werden. Bis zu einer Freigrenze von 50 Euro monatlich pro Person sind diese Leistungen steuer- und sozialversicherungsfrei. Dies macht sie zu einem hocheffizienten Werkzeug für die Mitarbeiterbindung.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="accordion-item bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+                    <button onclick="toggleAccordion(this)" class="w-full px-8 py-6 flex items-center justify-between text-left group">
+                        <span class="text-[#001d4a] font-black uppercase text-sm tracking-tight group-hover:text-blue-600 transition-colors">Kann die My-Waycard mit unserem Firmenlogo gebrandet werden?</span>
+                        <span class="accordion-icon w-8 h-8 flex items-center justify-center bg-gray-50 rounded-full text-[#001d4a] group-hover:bg-[#4ade80] transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="px-8 pb-6 text-gray-500 text-xs leading-relaxed">
+                            Absolut! Wir bieten für Firmenkunden die Möglichkeit, sowohl die digitale als auch die physische Karte im Corporate Design Ihres Unternehmens zu gestalten. Dies stärkt die Identifikation Ihrer Mitarbeiter mit Ihrem Unternehmen bei jedem Kursbesuch.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="accordion-item bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+                    <button onclick="toggleAccordion(this)" class="w-full px-8 py-6 flex items-center justify-between text-left group">
+                        <span class="text-[#001d4a] font-black uppercase text-sm tracking-tight group-hover:text-blue-600 transition-colors">Gibt es spezielle Konditionen für größere Bestellmengen?</span>
+                        <span class="accordion-icon w-8 h-8 flex items-center justify-center bg-gray-50 rounded-full text-[#001d4a] group-hover:bg-[#4ade80] transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="px-8 pb-6 text-gray-500 text-xs leading-relaxed">
+                            Ja, ab einer bestimmten Anzahl von Karten oder einem festgelegten monatlichen Ladevolumen bieten wir attraktive Firmenrabatte und Bonus-Guthaben an. Kontaktieren Sie uns für ein individuelles Angebot, das auf die Größe Ihres Teams zugeschnitten ist.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="accordion-item bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+                    <button onclick="toggleAccordion(this)" class="w-full px-8 py-6 flex items-center justify-between text-left group">
+                        <span class="text-[#001d4a] font-black uppercase text-sm tracking-tight group-hover:text-blue-600 transition-colors">Wie läuft die Abrechnung ab?</span>
+                        <span class="accordion-icon w-8 h-8 flex items-center justify-center bg-gray-50 rounded-full text-[#001d4a] group-hover:bg-[#4ade80] transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="px-8 pb-6 text-gray-500 text-xs leading-relaxed">
+                            Sie erhalten für jede Aufladung eine ordnungsgemäße Rechnung mit ausgewiesener Mehrwertsteuer. Die Verwaltung kann bequem über unser Firmenportal erfolgen, in dem Sie Ladevorgänge steuern und Belege exportieren können.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function toggleAccordion(button) {
+            const item = button.parentElement;
+            
+            // Close all other items
+            document.querySelectorAll('.accordion-item').forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                    otherItem.querySelector('.accordion-content').style.maxHeight = '0';
+                    otherItem.querySelector('.accordion-icon').style.transform = 'rotate(0deg)';
+                }
+            });
+
+            // Toggle current item
+            const content = item.querySelector('.accordion-content');
+            const icon = item.querySelector('.accordion-icon');
+            
+            if (item.classList.contains('active')) {
+                item.classList.remove('active');
+                content.style.maxHeight = '0';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                item.classList.add('active');
+                content.style.maxHeight = content.scrollHeight + 'px';
+                icon.style.transform = 'rotate(45deg)';
+            }
+        }
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-[#001d4a] py-16 px-4 md:px-12 text-center text-gray-500 text-sm">
+        <div class="max-w-7xl mx-auto border-t border-blue-900/50 pt-16">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+                <img src="assets/images/Logo.png" alt="Logo"
+                    class="h-8 opacity-50 grayscale brightness-200 mb-8 md:mb-0">
+                <div class="flex space-x-8">
+                    <a href="#" class="hover:text-white transition-colors">Über uns</a>
+                    <a href="#" class="hover:text-white transition-colors">Partner</a>
+                    <a href="#" class="hover:text-white transition-colors">Impressum</a>
+                    <a href="#" class="hover:text-white transition-colors">Datenschutz</a>
+                </div>
+            </div>
+            <p>© 2024 my-waycard.com. Alle Rechte vorbehalten. Ein Projekt der Google DeepMind Advanced Agentic Coding
+                Initiative.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
