@@ -473,7 +473,7 @@
 
         <!-- Filter and Sort Header -->
         <div class="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
-            <button onclick="toggleFilters()" class="flex items-center text-[#001d4a] font-black text-sm uppercase lg:pointer-events-none">
+            <button onclick="toggleFilters()" class="flex items-center text-[#001d4a] font-black text-sm uppercase">
                 FILTER
                 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -496,7 +496,7 @@
                 <div class="bg-[#f8f9fb] rounded-xl p-6 shadow-sm border border-gray-100/50">
                     <div class="flex justify-between items-center mb-8">
                         <h4 class="text-[#001d4a] font-bold text-sm uppercase">FILTER</h4>
-                        <button class="text-[#001d4a]">
+                        <button onclick="toggleFilters()" class="text-[#001d4a] hover:opacity-70 transition-opacity">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
@@ -949,7 +949,12 @@
 
         function toggleFilters() {
             const sidebar = document.getElementById('filter-sidebar');
-            sidebar.classList.toggle('hidden');
+            const isHidden = window.getComputedStyle(sidebar).display === 'none';
+            if (isHidden) {
+                sidebar.style.display = 'block';
+            } else {
+                sidebar.style.display = 'none';
+            }
         }
     </script>
 </body>
