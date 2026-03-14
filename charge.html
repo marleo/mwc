@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my-waycard.com | Aufladen & Bestellen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .step-active {
+            background-color: #4ade80;
+            color: #001d4a;
+        }
+
+        .step-inactive {
+            background-color: white;
+            color: #001d4a;
+            border: 2px solid #e5e7eb;
+        }
+
+        .card-selected {
+            border: 2px solid #4ade80;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom Range Slider */
+        input[type='range'] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+
+        input[type='range']::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            background: #001d4a;
+            border-radius: 2px;
+        }
+
+        input[type='range']::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #4ade80;
+            cursor: pointer;
+            margin-top: -8px;
+            border: 4px solid white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Top Navigation Bar -->
+    <div class="bg-[#001d4a] border-b border-blue-900">
+        <nav
+            class="max-w-7xl mx-auto text-white text-[11px] py-2 px-4 md:px-12 flex flex-wrap justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="bg-white text-[#001d4a] font-bold px-1 rounded-sm text-[10px]">10</span>
+                <p>Jetzt wieder aufladen und 10% Bonus bekommen</p>
+            </div>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="#" class="hover:underline flex items-center space-x-1">
+                    <span>my-waycard kaufen</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z">
+                        </path>
+                    </svg>
+                </a>
+                <a href="charge.html" class="hover:underline flex items-center space-x-1">
+                    <span>my-waycard aufladen</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </a>
+                <a href="#" class="hover:underline flex items-center space-x-1">
+                    <span>my-waycard Guthaben abfragen</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                        </path>
+                    </svg>
+                </a>
+                <button class="hover:opacity-80">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <header class="bg-white sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto py-4 px-4 md:px-12 flex flex-wrap items-center justify-between">
+            <div class="flex items-center space-x-1">
+                <a href="index.html">
+                    <img src="assets/images/Logo.png" alt="my-waycard Logo" class="h-10 w-auto">
+                </a>
+            </div>
+
+            <div class="flex-1 max-w-2xl mx-8 hidden lg:flex items-center space-x-4">
+                <a href="courses.html" class="flex items-center text-[#001d4a] font-semibold text-sm">
+                    Entdecken
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </a>
+                <div class="relative flex-1">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </span>
+                    <input type="text" placeholder="Suche nach Kursen"
+                        class="w-full bg-gray-100 border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <button
+                    class="bg-[#4ade80] text-[#001d4a] px-6 py-2 rounded-lg font-bold text-sm hover:bg-[#3be075] transition-colors">
+                    Jetzt kaufen
+                </button>
+                <div class="flex items-center space-x-1 border border-gray-300 rounded px-2 py-1 cursor-pointer">
+                    <span class="text-xs font-bold text-[#001d4a]">DE</span>
+                    <svg class="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content: Progress Wizard -->
+    <main class="flex-1 py-4 px-4">
+        <div class="max-w-4xl mx-auto">
+
+            <!-- Progress Steps Indicator -->
+            <div class="flex justify-center items-center space-x-6 mb-4 mt-2">
+                <div id="step-1-dot"
+                    class="w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-md step-active">1
+                </div>
+                <div id="step-2-dot"
+                    class="w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-sm step-inactive">2
+                </div>
+                <div id="step-3-dot"
+                    class="w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-sm step-inactive">3
+                </div>
+                <div id="step-4-dot"
+                    class="w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-sm step-inactive">4
+                </div>
+                <div id="step-5-dot"
+                    class="w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-sm step-inactive">5
+                </div>
+            </div>
+            <p id="step-label" class="text-center text-[#001d4a] font-semibold text-sm mb-6 uppercase tracking-wide">
+                Kundentyp</p>
+
+            <!-- Wizard Containers -->
+            <div class="relative min-h-[150px]">
+
+                <!-- Stage 1: Kundentyp -->
+                <div id="stage-1" class="stage transition-all duration-300 scale-100 opacity-100">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div onclick="selectClientType('privat')" id="client-privat"
+                            class="bg-white p-10 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col items-center justify-center text-center group">
+                            <div
+                                class="w-6 h-6 rounded-full border-2 border-gray-300 mb-6 flex items-center justify-center group-hover:border-[#001d4a]">
+                                <div id="check-privat" class="w-3 h-3 rounded-full bg-[#001d4a] hidden"></div>
+                            </div>
+                            <h3 class="text-[#001d4a] font-black uppercase text-xl leading-tight">PRIVATKUNDE</h3>
+                        </div>
+                        <div onclick="selectClientType('firma')" id="client-firma"
+                            class="bg-white p-10 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col items-center justify-center text-center group">
+                            <div
+                                class="w-6 h-6 rounded-full border-2 border-gray-300 mb-6 flex items-center justify-center group-hover:border-[#001d4a]">
+                                <div id="check-firma" class="w-3 h-3 rounded-full bg-[#001d4a] hidden"></div>
+                            </div>
+                            <h3 class="text-[#001d4a] font-black uppercase text-xl leading-tight">FIRMENKUNDE</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 2: Betrag -->
+                <div id="stage-2" class="stage hidden transition-all duration-300 scale-95 opacity-0">
+                    <div
+                        class="bg-white p-12 rounded-[2.5rem] shadow-sm border border-gray-50 flex flex-col items-center text-center">
+                        <h3 class="text-[#001d4a] font-black uppercase text-sm tracking-widest mb-10">WERT</h3>
+
+                        <div class="w-full max-w-md mb-8">
+                            <input type="range" id="value-slider" min="10" max="2500" step="10" value="500"
+                                class="mb-4">
+                            <div class="flex justify-between text-[11px] font-bold text-[#001d4a] opacity-80">
+                                <span>€ 10</span>
+                                <span>€ 2500</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4 mb-4">
+                            <span class="text-[#001d4a] font-bold text-sm">Wert eingeben:</span>
+                            <div class="relative">
+                                <input type="number" id="value-input" value="500"
+                                    class="bg-gray-100 border-none rounded-xl py-3 px-6 text-[#001d4a] font-bold text-lg w-32 focus:ring-2 focus:ring-[#4ade80]">
+                                <span
+                                    class="absolute right-4 top-1/2 -translate-y-1/2 text-[#001d4a] font-bold">€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 3: Zustellung -->
+                <div id="stage-3" class="stage hidden transition-all duration-300 scale-95 opacity-0 text-[#001d4a]">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div onclick="selectDelivery('physical')" id="delivery-physical"
+                            class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col items-center text-center group">
+                            <div
+                                class="w-6 h-6 rounded-full border-2 border-gray-300 mb-6 flex items-center justify-center group-hover:border-[#001d4a]">
+                                <div id="check-physical" class="w-3 h-3 rounded-full bg-[#001d4a] hidden"></div>
+                            </div>
+                            <h3 class="font-black uppercase text-sm mb-6">GESCHENKKARTE</h3>
+                            <div class="mb-8 bg-gray-50 rounded-3xl w-full overflow-hidden h-44">
+                                <img src="https://images.unsplash.com/photo-1637070155805-e6fbee6ec2cf?w=600&h=400&fit=crop"
+                                    alt="Gift Card" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-bold mb-4 leading-tight">Die Karte zum Anfassen.<br>Elegant. Persönlich.
+                                Besonders.</h4>
+                            <p class="text-[10px] opacity-70 leading-relaxed mb-6">Im Format einer Kreditkarte und
+                                verpackt in einem hochwertigen Pop-up-Sleeve, wird sie zu einem Geschenk, das Eindruck
+                                macht. Wähle ein Design, das deine Botschaft unterstreicht. Auf Wunsch senden wir die
+                                Karte direkt an die gewünschte Adresse.</p>
+                            <p class="text-[11px] font-black italic">Der Versand dauert in der Regel 1-3 Werktage.</p>
+                        </div>
+                        <div onclick="selectDelivery('digital')" id="delivery-digital"
+                            class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col items-center text-center group">
+                            <div
+                                class="w-6 h-6 rounded-full border-2 border-gray-300 mb-6 flex items-center justify-center group-hover:border-[#001d4a]">
+                                <div id="check-digital" class="w-3 h-3 rounded-full bg-[#001d4a] hidden"></div>
+                            </div>
+                            <h3 class="font-black uppercase text-sm mb-6">PRINT@HOME</h3>
+                            <div class="mb-8 bg-gray-50 rounded-3xl w-full overflow-hidden h-44">
+                                <img src="https://images.unsplash.com/photo-1708793699492-5fa208f52dcb?w=600&h=400&fit=crop"
+                                    alt="Print at Home" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-bold mb-4 leading-tight">Wenn es schnell gehen soll. Kommt direkt per Email
+                                als pdf.</h4>
+                            <p class="text-[10px] opacity-70 leading-relaxed mb-6">Mit print@home erhältst du die
+                                Geschenkkarte direkt als PDF - ideal für kurzfristige Anlässe. Auf Wunsch versenden wir
+                                den Gutschein direkt an die gewünschte Email-Adresse. Wähle aus zahlreichen modernen
+                                Designs und verschenke Wertschätzung in wenigen Minuten.</p>
+                            <p class="text-[11px] font-black italic">Ausdrucken - Freude schenken.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 4 & 5 placeholders -->
+                <div id="stage-4"
+                    class="stage hidden text-center p-20 bg-white rounded-3xl border border-gray-100 italic text-gray-400">
+                    Personalisierung (Coming soon)</div>
+                <div id="stage-5"
+                    class="stage hidden text-center p-20 bg-white rounded-3xl border border-gray-100 italic text-gray-400">
+                    Abschluss (Coming soon)</div>
+
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex justify-center items-center space-x-6 mt-6 scale-110">
+                <button onclick="prevStage()" id="btn-back"
+                    class="bg-[#003566] text-white px-10 py-3 rounded-xl font-bold text-sm shadow-md hover:opacity-90 transition-all hidden">Zurück</button>
+                <button onclick="nextStage()" id="btn-next"
+                    class="bg-[#4ade80] text-[#001d4a] px-10 py-3 rounded-xl font-black text-sm shadow-md hover:bg-[#3be075] transition-all">Weiter</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Bonus Banner (Recreated from index.html) -->
+    <section class="px-4 md:px-12 py-6">
+        <div
+            class="max-w-7xl mx-auto w-full bg-[#002a5a] rounded-[2rem] p-6 md:p-8 text-white relative flex flex-col md:flex-row items-center justify-between overflow-hidden">
+            <div class="z-10 text-left">
+                <p class="text-xs font-medium mb-3 opacity-90">Die my-waycard für weitere Kurse jederzeit wieder
+                    aufladen.</p>
+                <h2 class="text-2xl md:text-3xl font-black mb-6 leading-tight tracking-tight uppercase italic">
+                    Mehr Weg, Mehr Wow!<br>Hol dir 10% Bonus.
+                </h2>
+                <div class="flex space-x-3">
+                    <a href="charge.html"
+                        class="bg-white text-[#001d4a] px-6 py-2 rounded-lg font-bold text-xs hover:bg-gray-100 transition-colors">
+                        Jetzt kaufen
+                    </a>
+                    <button
+                        class="bg-gradient-to-r from-blue-700 to-blue-500 text-white px-6 py-2 rounded-lg font-bold text-xs hover:opacity-90 transition-opacity">
+                        Jetzt aufladen
+                    </button>
+                </div>
+            </div>
+
+            <div class="relative mt-10 md:mt-0 md:mr-12 flex items-center justify-center">
+                <div class="absolute -top-6 -left-6 bonus-bracket"></div>
+                <span
+                    class="text-[80px] md:text-[110px] font-black text-[#4ade80] leading-none select-none tracking-tighter">10%</span>
+                <div class="absolute -bottom-6 -right-6 bonus-bracket-bottom"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Filler -->
+    <footer class="bg-[#001d4a] py-10 px-4 md:px-12 text-center text-gray-400 text-sm mt-auto">
+        <div class="max-w-7xl mx-auto">
+            <p>© 2024 my-waycard.com. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentStage = 1;
+        const totalStages = 5;
+        const stageLabels = ["Kundentyp", "Betrag", "Zustellung", "Personalisieren", "Zusammenfassung"];
+
+        function updateUI() {
+            // Update dots
+            for (let i = 1; i <= totalStages; i++) {
+                const dot = document.getElementById(`step-${i}-dot`);
+                if (i === currentStage) {
+                    dot.classList.remove('step-inactive');
+                    dot.classList.add('step-active');
+                } else if (i < currentStage) {
+                    dot.classList.remove('step-inactive');
+                    dot.classList.add('step-active', 'opacity-50');
+                } else {
+                    dot.classList.remove('step-active', 'opacity-50');
+                    dot.classList.add('step-inactive');
+                }
+            }
+
+            // Update label
+            document.getElementById('step-label').innerText = stageLabels[currentStage - 1];
+
+            // Show/Hide stages
+            document.querySelectorAll('.stage').forEach((s, idx) => {
+                const idNum = idx + 1;
+                const element = document.getElementById(`stage-${idNum}`);
+                if (idNum === currentStage) {
+                    element.classList.remove('hidden');
+                    setTimeout(() => {
+                        element.classList.remove('scale-95', 'opacity-0');
+                        element.classList.add('scale-100', 'opacity-100');
+                    }, 50);
+                } else {
+                    element.classList.add('hidden', 'scale-95', 'opacity-0');
+                    element.classList.remove('scale-100', 'opacity-100');
+                }
+            });
+
+            // Update buttons
+            const backBtn = document.getElementById('btn-back');
+            if (currentStage > 1) {
+                backBtn.classList.remove('hidden');
+            } else {
+                backBtn.classList.add('hidden');
+            }
+
+            if (currentStage === totalStages) {
+                document.getElementById('btn-next').innerText = "Kaufen";
+            } else {
+                document.getElementById('btn-next').innerText = "Weiter";
+            }
+        }
+
+        function nextStage() {
+            if (currentStage < totalStages) {
+                currentStage++;
+                updateUI();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function prevStage() {
+            if (currentStage > 1) {
+                currentStage--;
+                updateUI();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function selectClientType(type) {
+            document.getElementById('client-privat').classList.remove('card-selected');
+            document.getElementById('client-firma').classList.remove('card-selected');
+            document.getElementById('check-privat').classList.add('hidden');
+            document.getElementById('check-firma').classList.add('hidden');
+
+            document.getElementById(`client-${type}`).classList.add('card-selected');
+            document.getElementById(`check-${type}`).classList.remove('hidden');
+
+            // Auto next stage after short delay for better UX
+            setTimeout(nextStage, 400);
+        }
+
+        function selectDelivery(type) {
+            document.getElementById('delivery-physical').classList.remove('card-selected');
+            document.getElementById('delivery-digital').classList.remove('card-selected');
+            document.getElementById('check-physical').classList.add('hidden');
+            document.getElementById('check-digital').classList.add('hidden');
+
+            document.getElementById(`delivery-${type}`).classList.add('card-selected');
+            document.getElementById(`check-${type}`).classList.remove('hidden');
+
+            setTimeout(nextStage, 500);
+        }
+
+        // Slider & Input logic
+        const slider = document.getElementById('value-slider');
+        const input = document.getElementById('value-input');
+
+        slider.addEventListener('input', (e) => {
+            input.value = e.target.value;
+        });
+
+        input.addEventListener('input', (e) => {
+            slider.value = e.target.value;
+        });
+
+        updateUI();
+    </script>
+</body>
+
+</html>
