@@ -628,7 +628,7 @@
                             </div>
                             <div class="flex justify-between items-center pb-4 border-b border-gray-200">
                                 <span class="text-gray-500 text-xs font-bold uppercase">Bonus (10%)</span>
-                                <span class="text-green-600 font-bold">+ € 10,00</span>
+                                <span class="text-green-600 font-bold" id="bonus-amount">+ € 10,00</span>
                             </div>
                             <div class="flex justify-between items-center pt-2">
                                 <span class="text-[#001d4a] font-black uppercase text-sm">Gesamtwert</span>
@@ -896,6 +896,7 @@
             const bonus = rechargeAmount * 0.1;
             const combined = currentBalance + rechargeAmount + bonus;
             document.getElementById('new-balance-display').innerText = "€ " + combined.toFixed(2).replace('.', ',');
+            document.getElementById('bonus-amount').innerText = "+ € " + bonus.toFixed(2).replace('.', ',');
         }
 
         function nextStage() {
