@@ -15,7 +15,7 @@
         }
 
         .hero-gradient {
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #3b82f6 100%);
+            background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e40af 100%);
         }
 
         @keyframes blob {
@@ -214,7 +214,7 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero-gradient min-h-[500px] relative overflow-hidden">
+    <section class="hero-gradient min-h-[700px] relative overflow-hidden">
         <!-- Animated Background Blobs -->
         <div class="absolute w-full max-w-7xl inset-0 mx-auto pointer-events-none">
             <div
@@ -228,7 +228,13 @@
             </div>
         </div>
 
-        <div class="max-w-7xl mx-auto px-4 md:px-12 relative flex items-center h-full min-h-[500px] w-full">
+        <!-- Background Video -->
+        <video autoplay muted loop playsinline
+            class="absolute top-0 left-0 w-full h-full object-cover opacity-10 pointer-events-none z-0">
+            <source src="assets/videos/pexels.mp4" type="video/mp4">
+        </video>
+
+        <div class="max-w-7xl mx-auto px-4 md:px-12 relative flex items-center h-full min-h-[700px] w-full">
             <div class="z-10 max-w-2xl">
                 <h1
                     class="text-white text-5xl md:text-6xl font-extrabold leading-tight mb-4 uppercase tracking-tighter">
@@ -245,7 +251,7 @@
         <div class="max-w-7xl mx-auto relative">
             <!-- Hand coming out of section -->
             <img src="assets/images/hand.png" alt="Hand holding Waycard"
-                class="hidden lg:block absolute right-0 lg:-right-4 bottom-[65%] lg:bottom-[30%] w-64 lg:w-[500px] -z-10 pointer-events-none drop-shadow-2xl">
+                class="hidden lg:block absolute right-0 lg:-right-4 bottom-[65%] lg:bottom-[30%] w-64 lg:w-[550px] -z-10 pointer-events-none drop-shadow-2xl">
 
             <div
                 class="w-full bg-white rounded-3xl p-8 md:p-12 shadow-xl flex flex-col md:flex-row items-center gap-12 relative z-10">
