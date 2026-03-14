@@ -170,14 +170,7 @@
                     </svg>
                 </a>
                 <a href="recharge.html" class="hover:underline flex items-center space-x-1">
-                    <span>my-waycard aufladen</span>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
-                </a>
-                <a href="#" class="hover:underline flex items-center space-x-1">
-                    <span>my-waycard Guthaben abfragen</span>
+                    <span>my-waycard aufladen & abfragen</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
@@ -270,6 +263,13 @@
                 </a>
                 <a href="firmen.html" class="flex items-center justify-between text-[#001d4a] font-bold text-lg px-2">
                     Lösungen für Firmen
+                    <svg class="w-5 h-5 text-gray-400 font-normal" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+                <a href="recharge.html" class="flex items-center justify-between text-[#001d4a] font-bold text-lg px-2">
+                    Aufladen & Guthaben abfragen
                     <svg class="w-5 h-5 text-gray-400 font-normal" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -392,11 +392,10 @@
                         </h3>
 
                         <div class="w-full max-w-md mb-12">
-                            <input type="range" id="value-slider" min="10" max="2500" step="10" value="100"
-                                class="mb-4">
+                            <input type="range" id="value-slider" min="10" max="150" step="5" value="500" class="mb-4">
                             <div class="flex justify-between text-[11px] font-bold text-[#001d4a] opacity-80">
                                 <span>€ 10</span>
-                                <span>€ 2500</span>
+                                <span>€ 150</span>
                             </div>
                         </div>
 
@@ -445,31 +444,50 @@
                         <div onclick="selectClientType('privat')" id="client-privat"
                             class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all cursor-pointer flex flex-col items-center text-center group relative overflow-hidden">
                             <div class="absolute top-4 right-4">
-                                <div class="w-6 h-6 rounded-full border-2 border-gray-200 flex items-center justify-center group-hover:border-[#4ade80] transition-colors">
+                                <div
+                                    class="w-6 h-6 rounded-full border-2 border-gray-200 flex items-center justify-center group-hover:border-[#4ade80] transition-colors">
                                     <div id="check-privat" class="w-3 h-3 rounded-full bg-[#4ade80] hidden"></div>
                                 </div>
                             </div>
-                            
-                            <div class="w-16 h-16 bg-blue-50 text-[#001d4a] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+
+                            <div
+                                class="w-16 h-16 bg-blue-50 text-[#001d4a] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                 </svg>
                             </div>
-                            
+
                             <h3 class="text-[#001d4a] font-black uppercase text-xl mb-3 tracking-tight">PRIVATKUNDE</h3>
-                            <p class="text-gray-500 text-xs mb-8 leading-relaxed px-4">Für dich selbst oder als persönliches Geschenk für Freunde und Familie.</p>
-                            
+                            <p class="text-gray-500 text-xs mb-8 leading-relaxed px-4">Für dich selbst oder als
+                                persönliches Geschenk für Freunde und Familie.</p>
+
                             <ul class="text-left space-y-3 w-full max-w-[200px] mb-4">
-                                <li class="flex items-center text-[10px] font-bold text-[#001d4a] uppercase tracking-wide">
-                                    <svg class="w-4 h-4 text-[#4ade80] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                <li
+                                    class="flex items-center text-[10px] font-bold text-[#001d4a] uppercase tracking-wide">
+                                    <svg class="w-4 h-4 text-[#4ade80] mr-2" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
                                     Keine Gebühren
                                 </li>
-                                <li class="flex items-center text-[10px] font-bold text-[#001d4a] uppercase tracking-wide">
-                                    <svg class="w-4 h-4 text-[#4ade80] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                <li
+                                    class="flex items-center text-[10px] font-bold text-[#001d4a] uppercase tracking-wide">
+                                    <svg class="w-4 h-4 text-[#4ade80] mr-2" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
                                     Sofort Verfügbar
                                 </li>
-                                <li class="flex items-center text-[10px] font-bold text-[#001d4a] uppercase tracking-wide">
-                                    <svg class="w-4 h-4 text-[#4ade80] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                <li
+                                    class="flex items-center text-[10px] font-bold text-[#001d4a] uppercase tracking-wide">
+                                    <svg class="w-4 h-4 text-[#4ade80] mr-2" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
                                     Individuelles Design
                                 </li>
                             </ul>
@@ -479,31 +497,51 @@
                         <div onclick="selectClientType('firma')" id="client-firma"
                             class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all cursor-pointer flex flex-col items-center text-center group relative overflow-hidden">
                             <div class="absolute top-4 right-4">
-                                <div class="w-6 h-6 rounded-full border-2 border-gray-200 flex items-center justify-center group-hover:border-[#4ade80] transition-colors">
+                                <div
+                                    class="w-6 h-6 rounded-full border-2 border-gray-200 flex items-center justify-center group-hover:border-[#4ade80] transition-colors">
                                     <div id="check-firma" class="w-3 h-3 rounded-full bg-[#4ade80] hidden"></div>
                                 </div>
                             </div>
-                            
-                            <div class="w-16 h-16 bg-blue-50 text-[#001d4a] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+
+                            <div
+                                class="w-16 h-16 bg-blue-50 text-[#001d4a] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                                    </path>
                                 </svg>
                             </div>
-                            
+
                             <h3 class="text-[#001d4a] font-black uppercase text-xl mb-3 tracking-tight">FIRMENKUNDE</h3>
-                            <p class="text-gray-500 text-xs mb-8 leading-relaxed px-4">Für Firmen, Vereine und Institutionen als Benefit oder Incentive.</p>
-                            
+                            <p class="text-gray-500 text-xs mb-8 leading-relaxed px-4">Für Firmen, Vereine und
+                                Institutionen als Benefit oder Incentive.</p>
+
                             <ul class="text-left space-y-3 w-full max-w-[200px] mb-4">
-                                <li class="flex items-center text-[10px] font-bold text-[#001d4a] uppercase tracking-wide">
-                                    <svg class="w-4 h-4 text-[#4ade80] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                <li
+                                    class="flex items-center text-[10px] font-bold text-[#001d4a] uppercase tracking-wide">
+                                    <svg class="w-4 h-4 text-[#4ade80] mr-2" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
                                     Steuervorteile
                                 </li>
-                                <li class="flex items-center text-[10px] font-bold text-[#001d4a] uppercase tracking-wide">
-                                    <svg class="w-4 h-4 text-[#4ade80] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                <li
+                                    class="flex items-center text-[10px] font-bold text-[#001d4a] uppercase tracking-wide">
+                                    <svg class="w-4 h-4 text-[#4ade80] mr-2" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
                                     Rechnung mit MwSt.
                                 </li>
-                                <li class="flex items-center text-[10px] font-bold text-[#001d4a] uppercase tracking-wide">
-                                    <svg class="w-4 h-4 text-[#4ade80] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                <li
+                                    class="flex items-center text-[10px] font-bold text-[#001d4a] uppercase tracking-wide">
+                                    <svg class="w-4 h-4 text-[#4ade80] mr-2" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
                                     Bulk-Bestellung
                                 </li>
                             </ul>

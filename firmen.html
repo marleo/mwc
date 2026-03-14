@@ -68,21 +68,28 @@
                     </svg>
                 </a>
                 <a href="recharge.html" class="hover:underline flex items-center space-x-1">
-                    <span>my-waycard aufladen</span>
+                    <span>my-waycard aufladen & abfragen</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
-                </a>
-                <a href="recharge.html"
-                    class="hover:underline flex items-center space-x-1 border-l border-blue-800 pl-6">
-                    <span>my-waycard Guthaben abfragen</span>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
                         </path>
                     </svg>
                 </a>
+                <a href="firmen.html" class="hover:underline flex items-center space-x-1">
+                    <span>Lösungen für Firmen</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                        </path>
+                    </svg>
+                </a>
+                <button class="hover:opacity-80">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                        </path>
+                    </svg>
+                </button>
             </div>
         </nav>
     </div>
@@ -90,12 +97,21 @@
     <!-- Main Navigation Bar -->
     <header class="bg-white sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto py-3 px-4 md:px-12 flex items-center justify-between">
+            <!-- Logo Section -->
             <div class="flex items-center">
                 <a href="index.html">
                     <img src="assets/images/Logo.png" alt="my-waycard Logo" class="h-8 md:h-10 w-auto">
                 </a>
             </div>
+
+            <!-- Desktop Search & Discover (Hidden on mobile) -->
             <div class="flex-1 max-w-2xl mx-8 hidden lg:flex items-center space-x-4">
+                <a href="courses.html" class="flex items-center text-[#001d4a] font-semibold text-sm">
+                    Entdecken
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </a>
                 <div class="relative flex-1">
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -106,19 +122,78 @@
                     <input type="text" placeholder="Suche nach Kursen"
                         class="w-full bg-gray-100 border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-blue-500">
                 </div>
-                <a href="courses.html" class="flex items-center text-[#001d4a] font-black uppercase text-sm">
-                    Entdecken
-                    <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                            d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </a>
             </div>
-            <div class="flex items-center space-x-4">
+
+            <!-- Right-side actions -->
+            <div class="flex items-center space-x-2 md:space-x-4">
                 <a href="charge.html"
                     class="bg-[#4ade80] text-[#001d4a] px-4 md:px-6 py-2 rounded-lg font-bold text-xs md:text-sm hover:bg-[#3be075] transition-colors whitespace-nowrap">
                     Jetzt kaufen
                 </a>
+                <div
+                    class="hidden sm:flex items-center space-x-1 border border-gray-300 rounded px-2 py-1 cursor-pointer">
+                    <span class="text-xs font-bold text-[#001d4a]">DE</span>
+                    <svg class="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <!-- Hamburger Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-1 text-[#001d4a] hover:bg-gray-100 rounded-md">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                        <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu (Drawer style) -->
+        <div id="mobile-menu"
+            class="hidden lg:hidden bg-white border-t border-gray-100 px-4 py-6 space-y-6 shadow-xl absolute top-full left-0 w-full z-40">
+            <div class="flex flex-col space-y-4">
+                <a href="courses.html" class="flex items-center justify-between text-[#001d4a] font-bold text-lg px-2">
+                    Entdecken
+                    <svg class="w-5 h-5 text-gray-400 font-normal" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+                <a href="firmen.html" class="flex items-center justify-between text-[#001d4a] font-bold text-lg px-2">
+                    Lösungen für Firmen
+                    <svg class="w-5 h-5 text-gray-400 font-normal" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+                <a href="recharge.html" class="flex items-center justify-between text-[#001d4a] font-bold text-lg px-2">
+                    Aufladen & Guthaben abfragen
+                    <svg class="w-5 h-5 text-gray-400 font-normal" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+                <div class="relative px-2">
+                    <span class="absolute inset-y-0 left-5 flex items-center text-gray-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </span>
+                    <input type="text" placeholder="Suche nach Kursen"
+                        class="w-full bg-gray-100 border-none rounded-xl py-3 pl-12 pr-4 text-sm focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="pt-4 border-t border-gray-50 flex items-center justify-between px-2">
+                    <span class="text-sm font-semibold text-gray-500">Sprache wählen</span>
+                    <div class="flex items-center space-x-2 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-200">
+                        <span class="text-xs font-bold text-[#001d4a]">DE</span>
+                        <svg class="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -134,7 +209,7 @@
             </div>
             <div class="mt-8 md:mt-0 relative group">
                 <img src="assets/images/card.png" alt="my-waycard"
-                    class="w-72 md:w-[450px] drop-shadow-2xl transform rotate-[-10deg] group-hover:rotate-[-5deg] transition-transform duration-500">
+                    class="w-72 md:w-[450px] drop-shadow-2xl transform -rotate-6 group-hover:-rotate-2 transition-transform duration-500">
                 <div class="absolute -inset-4 bg-white/10 blur-3xl -z-10 rounded-full"></div>
             </div>
         </div>
@@ -524,6 +599,22 @@
     </section>
 
     <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger-icon');
+            const close = document.getElementById('close-icon');
+
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                hamburger.classList.add('hidden');
+                close.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+                hamburger.classList.remove('hidden');
+                close.classList.add('hidden');
+            }
+        }
+
         function toggleAccordion(button) {
             const item = button.parentElement;
             
