@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my-waycard.com | Kursanbieter - Autofirma</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e40af 100%);
+        }
+
+        @keyframes blob {
+            0% {
+                transform: translate(0px, 0px) scale(1);
+            }
+
+            33% {
+                transform: translate(50px, -70px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-40px, 40px) scale(0.9);
+            }
+
+            100% {
+                transform: translate(0px, 0px) scale(1);
+            }
+        }
+
+        .animate-blob {
+            animation: blob 15s ease-in-out infinite;
+        }
+
+        .waycard-bg {
+            background: linear-gradient(135deg, #111827 0%, #1e40af 100%);
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Top Navigation Bar -->
+    <div class="bg-[#001d4a] border-b border-blue-900">
+        <nav
+            class="max-w-7xl mx-auto text-white text-[11px] py-2 px-4 md:px-12 flex flex-wrap justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="bg-white text-[#001d4a] font-bold px-1 rounded-sm text-[10px]">10</span>
+                <p>Jetzt wieder aufladen und 10% Bonus bekommen</p>
+            </div>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="#" class="hover:underline flex items-center space-x-1">
+                    <span>my-waycard kaufen</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z">
+                        </path>
+                    </svg>
+                </a>
+                <a href="charge.html" class="hover:underline flex items-center space-x-1">
+                    <span>my-waycard aufladen</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <header class="bg-white sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto py-3 px-4 md:px-12 flex items-center justify-between">
+            <div class="flex items-center">
+                <a href="index.html">
+                    <img src="assets/images/Logo.png" alt="my-waycard Logo" class="h-8 md:h-10 w-auto">
+                </a>
+            </div>
+            <div class="flex-1 max-w-2xl mx-8 hidden lg:flex items-center space-x-4">
+                <a href="courses.html" class="flex items-center text-[#001d4a] font-semibold text-sm">
+                    Entdecken
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </a>
+                <div class="relative flex-1">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </span>
+                    <input type="text" placeholder="Suche nach Kursen"
+                        class="w-full bg-gray-100 border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="charge.html"
+                    class="bg-[#4ade80] text-[#001d4a] px-4 md:px-6 py-2 rounded-lg font-bold text-xs md:text-sm hover:bg-[#3be075] transition-colors whitespace-nowrap">
+                    Jetzt kaufen
+                </a>
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-1 text-[#001d4a] hover:bg-gray-100 rounded-md">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                        <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu"
+            class="hidden lg:hidden bg-white border-t border-gray-100 px-4 py-6 space-y-6 shadow-xl absolute top-full left-0 w-full z-40">
+            <div class="flex flex-col space-y-4">
+                <a href="courses.html" class="flex items-center justify-between text-[#001d4a] font-bold text-lg px-2">
+                    Entdecken
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Subpage Hero Section -->
+    <section class="hero-gradient h-[300px] relative overflow-hidden flex items-center">
+        <div class="absolute w-full max-w-7xl inset-0 mx-auto pointer-events-none">
+            <div
+                class="absolute top-[10%] -left-10 w-64 h-64 bg-[#4ade80] rounded-full mix-blend-screen filter blur-[80px] opacity-30 animate-blob">
+            </div>
+            <div
+                class="absolute bottom-[10%] -right-10 w-64 h-64 bg-cyan-400 rounded-full mix-blend-screen filter blur-[80px] opacity-30 animate-blob">
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 md:px-12 relative z-10 w-full">
+            <h1 class="text-white text-4xl md:text-5xl font-black uppercase tracking-tight italic">
+                UNSER PARTNER
+            </h1>
+            <p class="text-cyan-200 font-bold text-sm uppercase tracking-widest mt-2">Partner & Kursanbieter</p>
+        </div>
+    </section>
+
+    <!-- Main Content Layout -->
+    <main class="max-w-7xl mx-auto px-4 md:px-12 mt-12 pb-24 relative z-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+
+            <!-- Left Column: Description & Content -->
+            <div class="lg:col-span-12 xl:col-span-7">
+                <div class="py-12">
+                    <h2 class="text-[#001d4a] text-3xl font-black uppercase italic tracking-tight mb-8">
+                        SICHERHEIT DURCH ERFAHRUNG
+                    </h2>
+
+                    <div class="prose prose-slate max-w-none">
+                        <p class="text-[#001d4a] font-bold text-lg leading-relaxed mb-6">
+                            Der Autofirma ist immer für Sie da, egal wie Sie unterwegs sind. Als größter Mobilitätsclub
+                            Österreichs setzen wir Maßstäbe in Sachen Verkehrssicherheit und Training.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed mb-8">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus
+                            tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices
+                            diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci
+                            nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis
+                            semper.
+                        </p>
+
+                        <!-- Provider Video -->
+                        <div class="mb-12 rounded-3xl overflow-hidden shadow-2xl border border-gray-100 bg-black">
+                            <video controls class="w-full h-auto block"
+                                poster="https://images.unsplash.com/photo-1544620347-c4fd4a3d5962?w=1200&h=675&fit=crop">
+                                <source src="assets/videos/car.mp4" type="video/mp4">
+                                Ihr Browser unterstützt das Video-Tag nicht.
+                            </video>
+                        </div>
+
+                        <p class="text-gray-600 leading-relaxed mb-8">
+                            Morbi vel erat non mauris convallis vehicula. Nulla et sapien. Integer tortor tellus,
+                            aliquam faucibus, convallis id, congue eu, quam. Mauris ullamcorper felis vitae erat. Proin
+                            feugiat, augue non elementum posuere, metus purus iaculis lectus, et tristique ligula justo
+                            vitae magna. Aliquam convallis sollicitudin purus. Praesent aliquam, enim at fermentum
+                            mollis, ligula massa adipiscing nisl, ac euismod nibh nisl eu lectus.
+                        </p>
+
+                        <!-- Secondary Images Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+                            <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=600&h=400&fit=crop"
+                                alt="Sample 1" class="rounded-2xl shadow-md transition-shadow hover:shadow-xl">
+                            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop"
+                                alt="Sample 2" class="rounded-2xl shadow-md transition-shadow hover:shadow-xl">
+                        </div>
+                    </div>
+
+                    <!-- Courses Section -->
+                    <div class="mt-20">
+                        <h2 class="text-[#001d4a] text-3xl font-black uppercase italic tracking-tight mb-10">
+                            ALLE UNSERE KURSE IM ÜBERBLICK
+                        </h2>
+
+                        <div class="space-y-6">
+                            <!-- Course 1 -->
+                            <div
+                                class="flex flex-col md:flex-row bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100">
+                                <div class="relative w-full md:w-[35%] h-52 md:h-auto flex-shrink-0 bg-gray-300">
+                                    <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=400&fit=crop"
+                                        class="w-full h-full object-cover" alt="Course thumbnail">
+                                    <div
+                                        class="absolute top-4 left-4 bg-white p-1 rounded-xl shadow-lg w-12 h-12 flex items-center justify-center">
+                                        <img src="assets/images/Logo.png" alt="Provider" class="w-8 h-8 object-contain">
+                                    </div>
+                                </div>
+                                <div class="p-6 flex flex-col flex-1">
+                                    <a href="detail.html" class="hover:underline decoration-[#001d4a] decoration-2">
+                                         <h3 class="text-[#001d4a] font-black text-lg mb-1">Dynamik Training PKW</h3>
+                                     </a>
+                                    <a href="anbieter.html" class="hover:underline decoration-[#001d4a] decoration-2">
+                                        <p class="text-[#001d4a] text-[11px] font-bold mb-3">Ein Kurs von Wolfgang
+                                            Schüssel</p>
+                                    </a>
+                                    <p class="text-xs text-[#001d4a] opacity-70 mb-4 leading-relaxed line-clamp-2">
+                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                                        tempor invidunt ut labore et dolore magna aliquyam erat.
+                                    </p>
+                                    <div class="flex items-center space-x-1 mb-5">
+                                        <div class="flex text-[#001d4a] text-xs">★★★★<span
+                                                class="text-gray-400">★</span></div>
+                                        <span class="text-[#001d4a] text-[11px] font-bold pl-1">4,6</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-4 mb-6 text-[#001d4a]">
+                                        <div class="flex items-center text-[11px] font-bold">
+                                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z">
+                                                </path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            </svg>
+                                            Kitzbühel
+                                        </div>
+                                        <div class="flex items-center text-[11px] font-bold">
+                                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+                                                </path>
+                                            </svg>
+                                            Mittlere Schwierigkeit
+                                        </div>
+                                        <div class="flex items-center text-[11px] font-bold">
+                                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
+                                                </path>
+                                            </svg>
+                                            Deutsch
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span
+                                            class="bg-[#4ade80] text-[#001d4a] text-[9px] px-2 py-1 rounded font-bold uppercase">Bestseller</span>
+                                        <span
+                                            class="bg-gray-100 text-[#001d4a] text-[9px] px-2 py-1 rounded font-bold uppercase">KI
+                                            Skills</span>
+                                        <span
+                                            class="bg-gray-100 text-[#001d4a] text-[9px] px-2 py-1 rounded font-bold uppercase">Gesundheit</span>
+                                        <span
+                                            class="bg-gray-100 text-[#001d4a] text-[9px] px-2 py-1 rounded font-bold uppercase">Kurs
+                                            vor Ort</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Course 2 -->
+                            <div
+                                class="flex flex-col md:flex-row bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100">
+                                <div class="relative w-full md:w-[35%] h-52 md:h-auto flex-shrink-0 bg-gray-300">
+                                    <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&h=400&fit=crop"
+                                        class="w-full h-full object-cover" alt="Course thumbnail">
+                                    <div
+                                        class="absolute top-4 left-4 bg-white p-1 rounded-xl shadow-lg w-12 h-12 flex items-center justify-center">
+                                        <img src="assets/images/Logo.png" alt="Provider" class="w-8 h-8 object-contain">
+                                    </div>
+                                </div>
+                                <div class="p-6 flex flex-col flex-1">
+                                    <a href="detail.html" class="hover:underline decoration-[#001d4a] decoration-2">
+                                         <h3 class="text-[#001d4a] font-black text-lg mb-1">Dynamik Training PKW</h3>
+                                     </a>
+                                    <a href="anbieter.html" class="hover:underline decoration-[#001d4a] decoration-2">
+                                        <p class="text-[#001d4a] text-[11px] font-bold mb-3">Ein Kurs von Wolfgang
+                                            Schüssel</p>
+                                    </a>
+                                    <p class="text-xs text-[#001d4a] opacity-70 mb-4 leading-relaxed line-clamp-2">
+                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                                        tempor invidunt ut labore et dolore magna aliquyam erat.
+                                    </p>
+                                    <div class="flex items-center space-x-1 mb-5">
+                                        <div class="flex text-[#001d4a] text-xs">★★★★<span
+                                                class="text-gray-400">★</span></div>
+                                        <span class="text-[#001d4a] text-[11px] font-bold pl-1">4,6</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-4 mb-6 text-[#001d4a]">
+                                        <div class="flex items-center text-[11px] font-bold">
+                                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z">
+                                                </path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            </svg>
+                                            Kitzbühel
+                                        </div>
+                                        <div class="flex items-center text-[11px] font-bold">
+                                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+                                                </path>
+                                            </svg>
+                                            Mittlere Schwierigkeit
+                                        </div>
+                                        <div class="flex items-center text-[11px] font-bold">
+                                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
+                                                </path>
+                                            </svg>
+                                            Deutsch
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span
+                                            class="bg-[#4ade80] text-[#001d4a] text-[9px] px-2 py-1 rounded font-bold uppercase">Bestseller</span>
+                                        <span
+                                            class="bg-gray-100 text-[#001d4a] text-[9px] px-2 py-1 rounded font-bold uppercase">KI
+                                            Skills</span>
+                                        <span
+                                            class="bg-gray-100 text-[#001d4a] text-[9px] px-2 py-1 rounded font-bold uppercase">Gesundheit</span>
+                                        <span
+                                            class="bg-gray-100 text-[#001d4a] text-[9px] px-2 py-1 rounded font-bold uppercase">Kurs
+                                            vor Ort</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Course 3 -->
+                            <div
+                                class="flex flex-col md:flex-row bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100">
+                                <div class="relative w-full md:w-[35%] h-52 md:h-auto flex-shrink-0 bg-gray-300">
+                                    <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600&h=400&fit=crop"
+                                        class="w-full h-full object-cover" alt="Course thumbnail">
+                                    <div
+                                        class="absolute top-4 left-4 bg-white p-1 rounded-xl shadow-lg w-12 h-12 flex items-center justify-center">
+                                        <img src="assets/images/Logo.png" alt="Provider" class="w-8 h-8 object-contain">
+                                    </div>
+                                </div>
+                                <div class="p-6 flex flex-col flex-1">
+                                    <a href="detail.html" class="hover:underline decoration-[#001d4a] decoration-2">
+                                         <h3 class="text-[#001d4a] font-black text-lg mb-1">Motorrad Intensiv-Training</h3>
+                                     </a>
+                                    <a href="anbieter.html" class="hover:underline decoration-[#001d4a] decoration-2">
+                                        <p class="text-[#001d4a] text-[11px] font-bold mb-3">Ein Kurs von Wolfgang
+                                            Schüssel</p>
+                                    </a>
+                                    <p class="text-xs text-[#001d4a] opacity-70 mb-4 leading-relaxed line-clamp-2">
+                                        Fahrsicherheit auf zwei Rädern. Meistern Sie schwierige Ausweichmanöver und
+                                        Schräglagen unter professioneller Anleitung.
+                                    </p>
+                                    <div class="flex items-center space-x-1 mb-5">
+                                        <div class="flex text-[#001d4a] text-xs">★★★★★</div>
+                                        <span class="text-[#001d4a] text-[11px] font-bold pl-1">5,0</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-4 mb-6 text-[#001d4a]">
+                                        <div class="flex items-center text-[11px] font-bold">
+                                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z">
+                                                </path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            </svg>
+                                            Saalbach
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span
+                                            class="bg-gray-100 text-[#001d4a] text-[9px] px-2 py-1 rounded font-bold uppercase">Sicherheit</span>
+                                        <span
+                                            class="bg-gray-100 text-[#001d4a] text-[9px] px-2 py-1 rounded font-bold uppercase">Motorrad</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Course 4 -->
+                            <div
+                                class="flex flex-col md:flex-row bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100">
+                                <div class="relative w-full md:w-[35%] h-52 md:h-auto flex-shrink-0 bg-gray-300">
+                                    <img src="https://images.unsplash.com/photo-1547038577-da80abbc4f19?w=600&h=400&fit=crop"
+                                        class="w-full h-full object-cover" alt="Course thumbnail">
+                                    <div
+                                        class="absolute top-4 left-4 bg-white p-1 rounded-xl shadow-lg w-12 h-12 flex items-center justify-center">
+                                        <img src="assets/images/Logo.png" alt="Provider" class="w-8 h-8 object-contain">
+                                    </div>
+                                </div>
+                                <div class="p-6 flex flex-col flex-1">
+                                    <a href="detail.html" class="hover:underline decoration-[#001d4a] decoration-2">
+                                         <h3 class="text-[#001d4a] font-black text-lg mb-1">Winter-Fahrtraining</h3>
+                                     </a>
+                                    <a href="anbieter.html" class="hover:underline decoration-[#001d4a] decoration-2">
+                                        <p class="text-[#001d4a] text-[11px] font-bold mb-3">Ein Kurs von Wolfgang
+                                            Schüssel</p>
+                                    </a>
+                                    <p class="text-xs text-[#001d4a] opacity-70 mb-4 leading-relaxed line-clamp-2">
+                                        Souverän auf Eis und Schnee. Lernen Sie die physikalischen Grenzen Ihres
+                                        Fahrzeugs bei winterlichen Bedingungen kennen.
+                                    </p>
+                                    <div class="flex items-center space-x-1 mb-5">
+                                        <div class="flex text-[#001d4a] text-xs">★★★★<span
+                                                class="text-gray-400">★</span></div>
+                                        <span class="text-[#001d4a] text-[11px] font-bold pl-1">4,8</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-4 mb-6 text-[#001d4a]">
+                                        <div class="flex items-center text-[11px] font-bold">
+                                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z">
+                                                </path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            </svg>
+                                            Innsbruck
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span
+                                            class="bg-[#4ade80] text-[#001d4a] text-[9px] px-2 py-1 rounded font-bold uppercase">Saison-Tipp</span>
+                                        <span
+                                            class="bg-gray-100 text-[#001d4a] text-[9px] px-2 py-1 rounded font-bold uppercase">Winter</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Course 5 -->
+                            <div
+                                class="flex flex-col md:flex-row bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100">
+                                <div class="relative w-full md:w-[35%] h-52 md:h-auto flex-shrink-0 bg-gray-300">
+                                    <img src="https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?w=600&h=400&fit=crop"
+                                        class="w-full h-full object-cover" alt="Course thumbnail">
+                                    <div
+                                        class="absolute top-4 left-4 bg-white p-1 rounded-xl shadow-lg w-12 h-12 flex items-center justify-center">
+                                        <img src="assets/images/Logo.png" alt="Provider" class="w-8 h-8 object-contain">
+                                    </div>
+                                </div>
+                                <div class="p-6 flex flex-col flex-1">
+                                    <a href="detail.html" class="hover:underline decoration-[#001d4a] decoration-2">
+                                         <h3 class="text-[#001d4a] font-black text-lg mb-1">Fuhrpark-Sicherheit</h3>
+                                     </a>
+                                    <a href="anbieter.html" class="hover:underline decoration-[#001d4a] decoration-2">
+                                        <p class="text-[#001d4a] text-[11px] font-bold mb-3">Ein Kurs von Wolfgang
+                                            Schüssel</p>
+                                    </a>
+                                    <p class="text-xs text-[#001d4a] opacity-70 mb-4 leading-relaxed line-clamp-2">
+                                        Spezialtraining für Firmenkunden. Minimieren Sie Schadensfälle und senken Sie
+                                        die Kosten durch geschulte Mitarbeiter.
+                                    </p>
+                                    <div class="flex items-center space-x-1 mb-5">
+                                        <div class="flex text-[#001d4a] text-xs">★★★★<span
+                                                class="text-gray-400">★</span></div>
+                                        <span class="text-[#001d4a] text-[11px] font-bold pl-1">4,4</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-4 mb-6 text-[#001d4a]">
+                                        <div class="flex items-center text-[11px] font-bold">
+                                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z">
+                                                </path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            </svg>
+                                            Wien
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span
+                                            class="bg-gray-100 text-[#001d4a] text-[9px] px-2 py-1 rounded font-bold uppercase">B2B</span>
+                                        <span
+                                            class="bg-gray-100 text-[#001d4a] text-[9px] px-2 py-1 rounded font-bold uppercase">Professional</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Course 6 -->
+                            <div
+                                class="flex flex-col md:flex-row bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100">
+                                <div class="relative w-full md:w-[35%] h-52 md:h-auto flex-shrink-0 bg-gray-300">
+                                    <img src="https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?w=600&h=400&fit=crop"
+                                        class="w-full h-full object-cover" alt="Course thumbnail">
+                                    <div
+                                        class="absolute top-4 left-4 bg-white p-1 rounded-xl shadow-lg w-12 h-12 flex items-center justify-center">
+                                        <img src="assets/images/Logo.png" alt="Provider" class="w-8 h-8 object-contain">
+                                    </div>
+                                </div>
+                                <div class="p-6 flex flex-col flex-1">
+                                    <a href="detail.html" class="hover:underline decoration-[#001d4a] decoration-2">
+                                         <h3 class="text-[#001d4a] font-black text-lg mb-1">Off-Road Basis</h3>
+                                     </a>
+                                    <p class="text-[#001d4a] text-[11px] font-bold mb-3">Ein Kurs von Wolfgang Schüssel
+                                    </p>
+                                    <p class="text-xs text-[#001d4a] opacity-70 mb-4 leading-relaxed line-clamp-2">
+                                        Abseits befestigter Wege. Entdecken Sie die Möglichkeiten Ihres Allradfahrzeugs
+                                        in anspruchsvollem Gelände.
+                                    </p>
+                                    <div class="flex items-center space-x-1 mb-5">
+                                        <div class="flex text-[#001d4a] text-xs">★★★★<span
+                                                class="text-gray-400">★</span></div>
+                                        <span class="text-[#001d4a] text-[11px] font-bold pl-1">4,9</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-4 mb-6 text-[#001d4a]">
+                                        <div class="flex items-center text-[11px] font-bold">
+                                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z">
+                                                </path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            </svg>
+                                            Großglockner
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span
+                                            class="bg-gray-100 text-[#001d4a] text-[9px] px-2 py-1 rounded font-bold uppercase">Abenteuer</span>
+                                        <span
+                                            class="bg-gray-100 text-[#001d4a] text-[9px] px-2 py-1 rounded font-bold uppercase">Outdoor</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Provider Info Card (The "White Hovering Part") -->
+            <div class="lg:col-span-12 xl:col-span-5 lg:sticky lg:top-24">
+                <div
+                    class="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-2xl border border-gray-100 flex flex-col items-center mt-12 xl:mt-0">
+
+                    <!-- Provider Logo Container -->
+                    <div
+                        class="bg-yellow-400 w-full aspect-square max-w-[280px] rounded-3xl flex items-center justify-center p-8 mb-10 shadow-lg">
+                        <img src="https://foliegradinger.at/wp-content/uploads/2022/06/OeAMTC.png" alt="Company Logo"
+                            class="w-full h-auto">
+                    </div>
+
+                    <div class="w-full space-y-8">
+                        <div>
+                            <h3 class="text-[#001d4a] text-2xl font-black uppercase italic mb-2">Autofirma</h3>
+                            <p class="text-gray-500 font-bold text-sm uppercase leading-tight">Die Autofirma ist immer
+                                für
+                                Sie da, egal wie Sie unterwegs sind</p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-4 text-[#001d4a]">
+                                <div class="bg-gray-100 p-2 rounded-lg">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-10V4m-5 4V4m6 8V4">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <span class="font-bold text-sm uppercase">8 Kurse online verfügbar</span>
+                            </div>
+                            <div class="flex items-center space-x-4 text-[#001d4a]">
+                                <div class="bg-gray-100 p-2 rounded-lg">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <span class="font-bold text-sm"> autofirma@info.at</span>
+                            </div>
+                            <div class="flex items-center space-x-4 text-[#001d4a]">
+                                <div class="bg-gray-100 p-2 rounded-lg">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <span class="font-bold text-sm">www.autofirma.at</span>
+                            </div>
+                        </div>
+
+                        <div class="pt-4">
+                            <a href="https://www.autofirma.at" target="_blank" rel="noopener noreferrer"
+                                class="flex items-center justify-center space-x-2 w-full bg-[#001d4a] text-white py-4 rounded-2xl font-black uppercase text-sm hover:bg-[#003566] transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                                <span>Webseite besuchen</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#001d4a] py-12 px-4 md:px-12 text-center text-gray-400 text-sm">
+        <div class="max-w-7xl mx-auto">
+            <p>© 2024 my-waycard.com. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger-icon');
+            const close = document.getElementById('close-icon');
+
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                hamburger.classList.add('hidden');
+                close.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+                hamburger.classList.remove('hidden');
+                close.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+
+</html>
