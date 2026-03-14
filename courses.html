@@ -48,6 +48,28 @@
         .filter-radio:checked::before {
             transform: scale(1);
         }
+
+        .bonus-bracket {
+            border-left: 4px solid #4ade80;
+            border-top: 4px solid #4ade80;
+            width: 30px;
+            height: 30px;
+        }
+
+        .bonus-bracket-bottom {
+            border-right: 4px solid #4ade80;
+            border-bottom: 4px solid #4ade80;
+            width: 30px;
+            height: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .bonus-bracket, .bonus-bracket-bottom {
+                width: 15px;
+                height: 15px;
+                border-width: 2px;
+            }
+        }
     </style>
 </head>
 
@@ -434,24 +456,24 @@
         <!-- Categories tags -->
         <div class="flex flex-wrap gap-3 mb-8">
             <button
-                class="border border-[#001d4a] text-[#001d4a] px-4 py-2 rounded-md text-[11px] font-bold uppercase transition hover:bg-gray-50">SCHLEUDERTRAINING</button>
+                class="border border-[#001d4a] text-[#001d4a] px-4 py-2 rounded-full text-[11px] font-bold uppercase transition hover:bg-gray-50">SCHLEUDERTRAINING</button>
             <button
-                class="border border-[#001d4a] text-[#001d4a] px-4 py-2 rounded-md text-[11px] font-bold uppercase transition hover:bg-gray-50">MOTORRADTRAINING</button>
+                class="border border-[#001d4a] text-[#001d4a] px-4 py-2 rounded-full text-[11px] font-bold uppercase transition hover:bg-gray-50">MOTORRADTRAINING</button>
             <button
-                class="border border-[#001d4a] text-[#001d4a] px-4 py-2 rounded-md text-[11px] font-bold uppercase transition hover:bg-gray-50">AUTOTRAINING</button>
+                class="border border-[#001d4a] text-[#001d4a] px-4 py-2 rounded-full text-[11px] font-bold uppercase transition hover:bg-gray-50">AUTOTRAINING</button>
             <button
-                class="border border-[#001d4a] text-[#001d4a] px-4 py-2 rounded-md text-[11px] font-bold uppercase transition hover:bg-gray-50">DRIFTTRAINING</button>
+                class="border border-[#001d4a] text-[#001d4a] px-4 py-2 rounded-full text-[11px] font-bold uppercase transition hover:bg-gray-50">DRIFTTRAINING</button>
             <button
-                class="border border-[#001d4a] text-[#001d4a] px-4 py-2 rounded-md text-[11px] font-bold uppercase transition hover:bg-gray-50">QUADTRAINING</button>
+                class="border border-[#001d4a] text-[#001d4a] px-4 py-2 rounded-full text-[11px] font-bold uppercase transition hover:bg-gray-50">QUADTRAINING</button>
             <button
-                class="border border-[#001d4a] text-[#001d4a] px-4 py-2 rounded-md text-[11px] font-bold uppercase transition hover:bg-gray-50">FÜHRERSCHEIN</button>
+                class="border border-[#001d4a] text-[#001d4a] px-4 py-2 rounded-full text-[11px] font-bold uppercase transition hover:bg-gray-50">FÜHRERSCHEIN</button>
             <button
-                class="border border-gray-300 text-gray-400 px-4 py-2 rounded-md text-[11px] font-bold uppercase pointer-events-none">MOTORRADSCHEIN</button>
+                class="border border-gray-300 text-gray-400 px-4 py-2 rounded-full text-[11px] font-bold uppercase pointer-events-none">MOTORRADSCHEIN</button>
         </div>
 
         <!-- Filter and Sort Header -->
         <div class="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
-            <button class="flex items-center text-[#001d4a] font-black text-sm uppercase">
+            <button onclick="toggleFilters()" class="flex items-center text-[#001d4a] font-black text-sm uppercase lg:pointer-events-none">
                 FILTER
                 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -470,7 +492,7 @@
 
         <div class="flex flex-col lg:flex-row gap-10">
             <!-- Filter Sidebar -->
-            <div class="w-full lg:w-[320px] flex-shrink-0">
+            <div id="filter-sidebar" class="hidden lg:block w-full lg:w-[320px] flex-shrink-0">
                 <div class="bg-[#f8f9fb] rounded-xl p-6 shadow-sm border border-gray-100/50">
                     <div class="flex justify-between items-center mb-8">
                         <h4 class="text-[#001d4a] font-bold text-sm uppercase">FILTER</h4>
@@ -923,6 +945,11 @@
                 hamburger.classList.remove('hidden');
                 close.classList.add('hidden');
             }
+        }
+
+        function toggleFilters() {
+            const sidebar = document.getElementById('filter-sidebar');
+            sidebar.classList.toggle('hidden');
         }
     </script>
 </body>

@@ -58,6 +58,28 @@
             overflow: hidden;
         }
 
+        .bonus-bracket {
+            border-left: 4px solid #4ade80;
+            border-top: 4px solid #4ade80;
+            width: 30px;
+            height: 30px;
+        }
+
+        .bonus-bracket-bottom {
+            border-right: 4px solid #4ade80;
+            border-bottom: 4px solid #4ade80;
+            width: 30px;
+            height: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .bonus-bracket, .bonus-bracket-bottom {
+                width: 15px;
+                height: 15px;
+                border-width: 2px;
+            }
+        }
+
         .waycard-bg::after {
             content: "way";
             position: absolute;
@@ -402,16 +424,17 @@
                     Gerade aktuell</h2>
             </div>
 
-            <div class="flex flex-wrap border-b border-gray-200 mb-10 gap-x-8 gap-y-4">
-                <button class="pb-4 border-b-2 border-[#001d4a] font-bold text-[#001d4a] text-sm">Aus- und
-                    Weiterbildung</button>
+            <div class="flex flex-wrap mb-10 gap-3">
                 <button
-                    class="pb-4 border-b-2 border-transparent font-semibold text-gray-500 text-sm hover:text-[#001d4a]">Karriere</button>
+                    class="border border-[#001d4a] bg-[#001d4a] text-white px-4 py-2 rounded-full text-[11px] font-bold uppercase transition hover:bg-opacity-90">Aus-
+                    und Weiterbildung</button>
                 <button
-                    class="pb-4 border-b-2 border-transparent font-semibold text-gray-500 text-sm hover:text-[#001d4a]">Freizeit
+                    class="border border-[#001d4a] text-[#001d4a] px-4 py-2 rounded-full text-[11px] font-bold uppercase transition hover:bg-gray-50">Karriere</button>
+                <button
+                    class="border border-[#001d4a] text-[#001d4a] px-4 py-2 rounded-full text-[11px] font-bold uppercase transition hover:bg-gray-50">Freizeit
                     und Kreativität</button>
                 <button
-                    class="pb-4 border-b-2 border-transparent font-semibold text-gray-500 text-sm hover:text-[#001d4a]">Sport
+                    class="border border-[#001d4a] text-[#001d4a] px-4 py-2 rounded-full text-[11px] font-bold uppercase transition hover:bg-gray-50">Sport
                     und Gesundheit</button>
             </div>
 
