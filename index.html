@@ -146,6 +146,33 @@
             mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
             -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
+
+        @keyframes bracket-float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-5px, -5px); }
+        }
+
+        @keyframes bracket-float-reverse {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(5px, 5px); }
+        }
+
+        @keyframes bonus-pulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px #4ade80); }
+            50% { transform: scale(1.03); filter: drop-shadow(0 0 10px rgba(74, 222, 128, 0.2)); }
+        }
+
+        .animate-bracket-top {
+            animation: bracket-float 3s ease-in-out infinite;
+        }
+
+        .animate-bracket-bottom {
+            animation: bracket-float-reverse 3s ease-in-out infinite;
+        }
+
+        .animate-bonus-text {
+            animation: bonus-pulse 3s ease-in-out infinite;
+        }
     </style>
 </head>
 
@@ -415,10 +442,10 @@
             </div>
 
             <div class="hidden md:flex relative mt-10 md:mt-0 md:mr-12 items-center justify-center">
-                <div class="absolute -top-6 -left-6 bonus-bracket"></div>
+                <div class="absolute -top-6 -left-6 bonus-bracket animate-bracket-top"></div>
                 <span
-                    class="text-[80px] md:text-[110px] font-black text-[#4ade80] leading-none select-none tracking-tighter">10%</span>
-                <div class="absolute -bottom-6 -right-6 bonus-bracket-bottom"></div>
+                    class="text-[80px] md:text-[110px] font-black text-[#4ade80] leading-none select-none tracking-tighter animate-bonus-text">10%</span>
+                <div class="absolute -bottom-6 -right-6 bonus-bracket-bottom animate-bracket-bottom"></div>
             </div>
         </div>
     </section>
